@@ -317,9 +317,10 @@ namespace CsCodeGenerator.Tests
 
         // VS has Bug that lockes files on writing
         // : Severity Code Description Project File Line Cannot open '.pdb' because it is being used by another process...
-        /*[Theory]
+        /*
+        [Theory]
         [InlineData(null)]
-        [InlineData("Generated")]
+        [InlineData("Generated")]*/
         public void ShouldWriteToDiskEntityUserFile(string directory)
         {
             CsGenerator csGenerator = new CsGenerator();
@@ -341,6 +342,6 @@ namespace CsCodeGenerator.Tests
         private List<string> ReadFileFromDisk(string path)
         {
             throw new NotImplementedException();
-        }*/
+        }
     }
 }
