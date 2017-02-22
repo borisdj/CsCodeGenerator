@@ -1,11 +1,13 @@
 ## CodeGenerator
-This is a small .NET Core library that enables easy c# code generation based on Classes and its elements(Parameters, Attributes, ClassMembers, etc).
-It has ability to create ClassModels and write them to .cs files.
+This is a small .NET Core library that enables easy c# code generation based on Classes and its elements (Parameters, Attributes, ClassMembers, etc).<br>
+It has ability to create ClassModels, specify their Members (Constructors, Fields, Properties, Methods) and write it to .cs files.<br>
+Defining 'namespace' and 'using' Directives is supported as well. Library can also generate `Enums`, and `NestedClasses` inside parent class.
 
 ## How to use it
 1. Install nuget package
   'Install-Package CsCodeGenerator'
 2. Following is first example of ComplexNumber class and then creating its ClassModel for writing to Complex.cs<br>
+
 Class we want to generate:
 ````csharp
 using System;
@@ -152,9 +154,6 @@ CsGenerator csGenerator = new CsGenerator();
 csGenerator.Files.Add(complexNumberFile.Name, complexNumberFile);
 //csGenerator.CreateFiles(); //Console.Write(complexNumberFile); 
 ````
-
-## Other Features
-Library can also generate `Enums`, and `NestedClasses` inside parent class.
 
 ## GeneratorModel Composition Structure:
 ````csharp
