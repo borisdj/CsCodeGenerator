@@ -4,7 +4,7 @@ It has ability to create ClassModels and write them to .cs files.
 
 ## How to use it
 1. Install nuget package
-  'Install-package CsCodeGenerator'
+  'Install-Package CsCodeGenerator'
 2. Following is first example of ComplexNumber class and then creating its ClassModel for writing to Complex.cs<br>
 Class we want to generate:
 ````csharp
@@ -55,7 +55,7 @@ namespace CsCodeGenerator.Tests
         // example of 2 KeyWords(new and virtual), usually here would be just virtual
         public new virtual string ToString()
         {
-            return String.Format("({0:0.00}, {0:0.00})", Real, Imaginary);
+            return $"({Real:0.00}, {Imaginary:0.00})";
         }
     }
 }
@@ -135,7 +135,7 @@ var methods = new Method[]
     {
         Comment = "example of 2 KeyWords(new and virtual), usually here would be just virtual",
         KeyWords = new List<KeyWord> { KeyWord.New, KeyWord.Virtual },
-        BodyLines = new List<string> { "return String.Format(\"({0:0.00}, {0:0.00})\", Real, Imaginary);" }
+        BodyLines = new List<string> { "return $\"({Real:0.00}, {Imaginary:0.00})\";" }
     }
 }.ToDictionary(a => a.Name, a => a);
 

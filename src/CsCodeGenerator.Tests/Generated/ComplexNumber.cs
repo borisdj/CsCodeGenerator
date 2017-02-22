@@ -45,7 +45,7 @@ namespace CsCodeGenerator.Tests
         // example of 2 KeyWords(new and virtual), usually here would be just virtual
         public new virtual string ToString()
         {
-            return String.Format("({0:0.00}, {0:0.00})", Real, Imaginary);
+            return $"({Real:0.00}, {Imaginary:0.00})";
         }
     }
 }

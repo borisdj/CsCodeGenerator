@@ -290,7 +290,7 @@ namespace CsCodeGenerator.Tests
                 {
                     Comment = "example of 2 KeyWords(new and virtual), usually here would be just virtual",
                     KeyWords = new List<KeyWord> { KeyWord.New, KeyWord.Virtual },
-                    BodyLines = new List<string> { "return String.Format(\"({0:0.00}, {0:0.00})\", Real, Imaginary);" }
+                    BodyLines = new List<string> { "return $\"({Real:0.00}, {Imaginary:0.00})\";" }
                 }
             }.ToDictionary(a => a.Name, a => a);
 
@@ -312,7 +312,6 @@ namespace CsCodeGenerator.Tests
             string text = GetComplexNumberFileText();
 
             Debug.Write(result);
-
             Assert.Equal(result, text);
         }
 
@@ -367,7 +366,7 @@ namespace CsCodeGenerator.Tests
                 "        // example of 2 KeyWords(new and virtual), usually here would be just virtual",
                 "        public new virtual string ToString()",
                 "        {",
-                "            return String.Format(\"({0:0.00}, {0:0.00})\", Real, Imaginary);",
+                "            return $\"({Real:0.00}, {Imaginary:0.00})\";",
                 "        }",
                 "    }",
                 "}"
