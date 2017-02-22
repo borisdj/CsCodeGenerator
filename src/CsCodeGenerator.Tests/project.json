@@ -10,7 +10,8 @@
     "System.Runtime.Serialization.Primitives": "4.1.1",
     "xunit": "2.2.0-rc4-build3536",
     "CsCodeGenerator": "1.0.0-*",
-    "dotnet-test-xunit": "2.2.0-preview2-build1029"
+    "dotnet-test-xunit": "2.2.0-preview2-build1029",
+    "System.ComponentModel.Primitives": "4.1.0"
   },
   "testRunner": "xunit",
   "frameworks": {

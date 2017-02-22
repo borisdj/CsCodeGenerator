@@ -11,7 +11,7 @@ namespace CsCodeGenerator
             base.BuiltInDataType = null;
             base.CustomDataType = Util.Class;
             base.Name = name;
-            Constructor = new Constructor(Name);
+            Constructors.Add(new Constructor(Name) { IsVisible = false, BracesInNewLine = false });
         }
 
         public override int IndentSize { get; set; } = (int)IndentType.Single * CsGenerator.DefaultTabSize;
@@ -29,7 +29,13 @@ namespace CsCodeGenerator
 
         public virtual Dictionary<string, Field> Fields { get; set; } = new Dictionary<string, Field>();
 
-        public virtual Constructor Constructor { get; }
+        public virtual List<Constructor> Constructors { get; set; } = new List<Constructor>();
+
+        public virtual Constructor DefaultConstructor
+        {
+            get { return Constructors[0]; }
+            set { Constructors[0] = value; }
+        }
 
         public virtual Dictionary<string, Property> Properties { get; set; } = new Dictionary<string, Property>();
 
@@ -47,10 +53,10 @@ namespace CsCodeGenerator
 
             result += String.Join("", Fields.Values);
 
-            bool hasFieldsBeforeConstructor = Constructor != null && Constructor.IsVisible && Fields.Count > 0;
+            bool hasFieldsBeforeConstructor = Constructors.Count > 0 && DefaultConstructor.IsVisible && Fields.Count > 0;
             result += hasFieldsBeforeConstructor ? Util.NewLine : "";
-            result += Constructor?.ToString();
-            bool hasMembersAfterConstructor = (Constructor.IsVisible || Fields.Count > 0) && (Properties.Count > 0 || Methods.Count > 0);
+            result += String.Join(Util.NewLine, Constructors);
+            bool hasMembersAfterConstructor = (DefaultConstructor.IsVisible || Fields.Count > 0) && (Properties.Count > 0 || Methods.Count > 0);
             result += hasMembersAfterConstructor ? Util.NewLine : "";
 
             result += String.Join(HasPropertiesSpacing ? Util.NewLine : "", Properties.Values);

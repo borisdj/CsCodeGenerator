@@ -1,0 +1,47 @@
+﻿COMPOSITION STRUCTURE:
+**********************
+CsGenerator
+|
+|---Files
+	|
+	|---Enums
+	|
+	|---Classes
+		|
+		|---Fields
+		|
+		|---Constructor
+		|	|---Attributes
+		|	|	|--- Parameters
+		|	|
+		|	|---Parameters
+		|
+		|---Properties
+		|	|---Attributes
+		|	|	|--- Parameters
+		|	|
+		|	|---Parameters
+		|
+		|---Methods
+		|	|---Attributes
+		|	|	|--- Parameters
+		|	|
+		|	|---Parameters
+		|
+		|---NestedClasses (recursively)
+			|--- ...
+
+
+INHERITANCE STRUCTURE:
+**********************
+Parameter
+Attribute
+BaseElement (of Class) - abstract
+
+EnumModel	: BaseElement
+ClassModel	: BaseElement
+Field		: BaseElement
+Method		: BaseElement
+
+Property	: Field
+Constructor	: Method

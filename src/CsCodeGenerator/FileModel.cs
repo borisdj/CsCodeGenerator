@@ -5,6 +5,12 @@ namespace CsCodeGenerator
 {
     public class FileModel
     {
+        public FileModel() { }
+        public FileModel(string name)
+        {
+            Name = name;
+        }
+
         public List<string> UsingDirectives { get; set; } = new List<string>();
 
         public string Namespace { get; set; }

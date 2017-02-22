@@ -12,10 +12,10 @@ namespace CsCodeGenerator
 
         public Method(string customDataType, string name) : base(customDataType, name) { }
 
-        public Method(AccessModifier accessModifier, KeyWord keyWord, BuiltInDataType builtInDataType, string name) : base(builtInDataType, name)
+        public Method(AccessModifier accessModifier, KeyWord singleKeyWord, BuiltInDataType builtInDataType, string name) : base(builtInDataType, name)
         {
             this.AccessModifier = accessModifier;
-            this.KeyWords.Add(keyWord);
+            this.KeyWords.Add(singleKeyWord);
         }
 
         public virtual bool IsVisible { get; set; } = true;
