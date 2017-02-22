@@ -10,7 +10,7 @@ CsGenerator
 		|
 		|---Fields
 		|
-		|---Constructor
+		|---Constructors
 		|	|---Attributes
 		|	|	|--- Parameters
 		|	|
