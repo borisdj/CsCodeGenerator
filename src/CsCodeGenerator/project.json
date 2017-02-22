@@ -1,8 +1,7 @@
-﻿{
+{
   "version": "1.0.0-*",
 
   "dependencies": {
-    "Humanizer.Core": "2.1.0",
     "NETStandard.Library": "1.6.1"
   },
 

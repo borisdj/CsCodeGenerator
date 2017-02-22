@@ -17,18 +17,6 @@
           "lib/netcoreapp1.0/dotnet-test-xunit.dll": {}
         }
       },
-      "Humanizer.Core/2.1.0": {
-        "type": "package",
-        "dependencies": {
-          "NETStandard.Library": "1.6.0"
-        },
-        "compile": {
-          "lib/netstandard1.0/Humanizer.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard1.0/Humanizer.dll": {}
-        }
-      },
       "Libuv/1.9.0": {
         "type": "package",
         "dependencies": {
@@ -2708,7 +2696,6 @@
         "type": "project",
         "framework": ".NETStandard,Version=v1.6",
         "dependencies": {
-          "Humanizer.Core": "2.1.0",
           "NETStandard.Library": "1.6.1"
         },
         "compile": {
@@ -2734,18 +2721,6 @@
         "runtimes/unix-x64/lib/net451/dotnet-test-xunit.exe",
         "runtimes/win7-x64/lib/net451/dotnet-test-xunit.exe",
         "runtimes/win7-x86/lib/net451/dotnet-test-xunit.exe"
-      ]
-    },
-    "Humanizer.Core/2.1.0": {
-      "sha512": "Gq3K0yWbjVpOfHY22djAz4q4263/LzpgqFgvk7vaSEpkCp7JBRoifMRISYWaX9lxJvUShhVV7/adBLu8nZWNxg==",
-      "type": "package",
-      "path": "Humanizer.Core/2.1.0",
-      "files": [
-        "Humanizer.Core.2.1.0.nupkg.sha512",
-        "Humanizer.Core.nuspec",
-        "lib/netstandard1.0/Humanizer.dll",
-        "lib/netstandard1.0/Humanizer.pdb",
-        "lib/netstandard1.0/Humanizer.xml"
       ]
     },
     "Libuv/1.9.0": {

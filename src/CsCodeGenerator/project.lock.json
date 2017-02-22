@@ -3,18 +3,6 @@
   "version": 2,
   "targets": {
     ".NETStandard,Version=v1.6": {
-      "Humanizer.Core/2.1.0": {
-        "type": "package",
-        "dependencies": {
-          "NETStandard.Library": "1.6.0"
-        },
-        "compile": {
-          "lib/netstandard1.0/Humanizer.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard1.0/Humanizer.dll": {}
-        }
-      },
       "Microsoft.NETCore.Platforms/1.1.0": {
         "type": "package",
         "compile": {
@@ -1211,18 +1199,6 @@
     }
   },
   "libraries": {
-    "Humanizer.Core/2.1.0": {
-      "sha512": "Gq3K0yWbjVpOfHY22djAz4q4263/LzpgqFgvk7vaSEpkCp7JBRoifMRISYWaX9lxJvUShhVV7/adBLu8nZWNxg==",
-      "type": "package",
-      "path": "Humanizer.Core/2.1.0",
-      "files": [
-        "Humanizer.Core.2.1.0.nupkg.sha512",
-        "Humanizer.Core.nuspec",
-        "lib/netstandard1.0/Humanizer.dll",
-        "lib/netstandard1.0/Humanizer.pdb",
-        "lib/netstandard1.0/Humanizer.xml"
-      ]
-    },
     "Microsoft.NETCore.Platforms/1.1.0": {
       "sha512": "kz0PEW2lhqygehI/d6XsPCQzD7ff7gUJaVGPVETX611eadGsA3A877GdSlU0LRVMCTH/+P3o2iDTak+S08V2+A==",
       "type": "package",
@@ -4349,7 +4325,6 @@
   },
   "projectFileDependencyGroups": {
     "": [
-      "Humanizer.Core >= 2.1.0",
       "NETStandard.Library >= 1.6.1"
     ],
     ".NETStandard,Version=v1.6": []
