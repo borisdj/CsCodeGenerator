@@ -177,9 +177,7 @@ namespace CsCodeGenerator.Tests
                 "        // Some Comment",
                 "        public class MyNestedClass",
                 "        {",
-                "            public MyNestedClass()",
-                "            {",
-                "            }",
+                "            public MyNestedClass() { }",
                 "        }",
                 "    }"
             };

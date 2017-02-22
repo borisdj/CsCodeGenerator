@@ -63,100 +63,101 @@ namespace CsCodeGenerator.Tests
 
 Code to do it:
 ````csharp
-            var usingDirectives = new List<string>
-            {
-                "using System;",
-                "using System.ComponentModel;"
-            };
-            string fileNameSpace = $"{Util.Namespace} CsCodeGenerator.Tests";
-            string complexNumberText = "ComplexNumber";
+var usingDirectives = new List<string>
+{
+    "using System;",
+    "using System.ComponentModel;"
+};
+string fileNameSpace = $"{Util.Namespace} CsCodeGenerator.Tests";
+string complexNumberText = "ComplexNumber";
 
-            ClassModel complexNumberClass = new ClassModel(complexNumberText);
-            complexNumberClass.SingleKeyWord = KeyWord.Partial; //or: complexNumberClass.KeyWords.Add(KeyWord.Partial);
+ClassModel complexNumberClass = new ClassModel(complexNumberText);
+complexNumberClass.SingleKeyWord = KeyWord.Partial; //or: complexNumberClass.KeyWords.Add(KeyWord.Partial);
 
-            complexNumberClass.AddAttribute(new AttributeModel("Description")
-            {
-                SingleParameter = new Parameter(@"""Some class info""")
-            });
+complexNumberClass.AddAttribute(new AttributeModel("Description")
+{
+    SingleParameter = new Parameter(@"""Some class info""")
+});
 
-            complexNumberClass.DefaultConstructor.IsVisible = true;
+complexNumberClass.DefaultConstructor.IsVisible = true;
 
-            Constructor secondConstructor = new Constructor(complexNumberClass.Name);
-            secondConstructor.Parameters.Add(new Parameter(BuiltInDataType.Double, "real"));
-            secondConstructor.Parameters.Add(new Parameter(BuiltInDataType.Double, "imaginary") { Value = "0" });
-            secondConstructor.BodyLines.Add("Real = real;");
-            secondConstructor.BodyLines.Add("Imaginary = imaginary;");
-            complexNumberClass.Constructors.Add(secondConstructor);
+Constructor secondConstructor = new Constructor(complexNumberClass.Name);
+secondConstructor.Parameters.Add(new Parameter(BuiltInDataType.Double, "real"));
+secondConstructor.Parameters.Add(new Parameter(BuiltInDataType.Double, "imaginary") { Value = "0" });
+secondConstructor.BodyLines.Add("Real = real;");
+secondConstructor.BodyLines.Add("Imaginary = imaginary;");
+complexNumberClass.Constructors.Add(secondConstructor);
 
-            var fields = new Field[]
-            {
-                new Field(BuiltInDataType.Double, "PI") { SingleKeyWord = KeyWord.Const, DefaultValue = "3.14" },
-                new Field(BuiltInDataType.String, "remark") { AccessModifier = AccessModifier.Private },
-            }.ToDictionary(a => a.Name, a => a);
+var fields = new Field[]
+{
+    new Field(BuiltInDataType.Double, "PI") { SingleKeyWord = KeyWord.Const, DefaultValue = "3.14" },
+    new Field(BuiltInDataType.String, "remark") { AccessModifier = AccessModifier.Private },
+}.ToDictionary(a => a.Name, a => a);
 
-            var properties = new Property[]
-            {
-                new Property(BuiltInDataType.String, "DefaultFormat")
-                {
-                    SingleKeyWord = KeyWord.Static,
-                    IsGetOnly = true,
-                    DefaultValue = @"""a + b * i"""
-                },
-                new Property(BuiltInDataType.Double, "Real"),
-                new Property(BuiltInDataType.Double, "Imaginary"),
-                new Property(BuiltInDataType.String, "Remark")
-                {
-                    SingleKeyWord = KeyWord.Virtual,
-                    IsAutoImplemented = false,
-                    GetterBody = "remark",
-                    SetterBody = "remark = value"
+var properties = new Property[]
+{
+    new Property(BuiltInDataType.String, "DefaultFormat")
+    {
+        SingleKeyWord = KeyWord.Static,
+        IsGetOnly = true,
+        DefaultValue = @"""a + b * i"""
+    },
+    new Property(BuiltInDataType.Double, "Real"),
+    new Property(BuiltInDataType.Double, "Imaginary"),
+    new Property(BuiltInDataType.String, "Remark")
+    {
+        SingleKeyWord = KeyWord.Virtual,
+        IsAutoImplemented = false,
+        GetterBody = "remark",
+        SetterBody = "remark = value"
 
-                },
-            }.ToDictionary(a => a.Name, a => a);
+    },
+}.ToDictionary(a => a.Name, a => a);
 
-            var methods = new Method[]
-            {
-                new Method(BuiltInDataType.Double, "Modul")
-                {
-                    BodyLines = new List<string> { "return Math.Sqrt(Real * Real + Imaginary * Imaginary);" }
-                },
-                new Method(complexNumberText, "Add")
-                {
-                    Parameters = new List<Parameter> { new Parameter("ComplexNumber", "input") },
-                    BodyLines = new List<string>
-                    {
-                        "ComplexNumber result = new ComplexNumber();",
-                        "result.Real = Real + input.Real;",
-                        "result.Imaginary = Imaginary + input.Imaginary;",
-                        "return result;"
-                    }
-                },
-                new Method(BuiltInDataType.String, "ToString")
-                {
-                    Comment = "example of 2 KeyWords(new and virtual), usually here would be just virtual",
-                    KeyWords = new List<KeyWord> { KeyWord.New, KeyWord.Virtual },
-                    BodyLines = new List<string> { "return String.Format(\"({0:0.00}, {0:0.00})\", Real, Imaginary);" }
-                }
-            }.ToDictionary(a => a.Name, a => a);
+var methods = new Method[]
+{
+    new Method(BuiltInDataType.Double, "Modul")
+    {
+        BodyLines = new List<string> { "return Math.Sqrt(Real * Real + Imaginary * Imaginary);" }
+    },
+    new Method(complexNumberText, "Add")
+    {
+        Parameters = new List<Parameter> { new Parameter("ComplexNumber", "input") },
+        BodyLines = new List<string>
+        {
+            "ComplexNumber result = new ComplexNumber();",
+            "result.Real = Real + input.Real;",
+            "result.Imaginary = Imaginary + input.Imaginary;",
+            "return result;"
+        }
+    },
+    new Method(BuiltInDataType.String, "ToString")
+    {
+        Comment = "example of 2 KeyWords(new and virtual), usually here would be just virtual",
+        KeyWords = new List<KeyWord> { KeyWord.New, KeyWord.Virtual },
+        BodyLines = new List<string> { "return String.Format(\"({0:0.00}, {0:0.00})\", Real, Imaginary);" }
+    }
+}.ToDictionary(a => a.Name, a => a);
 
-            complexNumberClass.Fields = fields;
-            complexNumberClass.Properties = properties;
-            complexNumberClass.Methods = methods;
+complexNumberClass.Fields = fields;
+complexNumberClass.Properties = properties;
+complexNumberClass.Methods = methods;
 
-            FileModel complexNumberFile = new FileModel(complexNumberText);
-            complexNumberFile.LoadUsingDirectives(usingDirectives);
-            complexNumberFile.Namespace = fileNameSpace;
-            complexNumberFile.Classes.Add(complexNumberClass.Name, complexNumberClass);
+FileModel complexNumberFile = new FileModel(complexNumberText);
+complexNumberFile.LoadUsingDirectives(usingDirectives);
+complexNumberFile.Namespace = fileNameSpace;
+complexNumberFile.Classes.Add(complexNumberClass.Name, complexNumberClass);
 
-            CsGenerator csGenerator = new CsGenerator();
-            csGenerator.Files.Add(complexNumberFile.Name, complexNumberFile);
-            //csGenerator.CreateFiles(); //Console.Write(complexNumberFile); 
+CsGenerator csGenerator = new CsGenerator();
+csGenerator.Files.Add(complexNumberFile.Name, complexNumberFile);
+//csGenerator.CreateFiles(); //Console.Write(complexNumberFile); 
 ````
 
 ## Other Features
-Library can also generate Enums, and Nested classes inside parent class.
+Library can also generate `Enums`, and `NestedClasses` inside parent class.
 
 ## GeneratorModel Composition Structure:
+````csharp
 CsGenerator
 |
 |---Files
@@ -187,3 +188,4 @@ CsGenerator
 		|
 		|---NestedClasses (recursively)
 			|--- ...
+````
