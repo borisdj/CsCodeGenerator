@@ -5,7 +5,7 @@ It has ability to create ClassModels and write them to .cs files.
 ## How to use it
 1. Install nuget package
   'Install-package CsCodeGenerator'
-2. Following is first example of ComplexNumber class and then creating its ClassModel for writing to Complex.cs
+2. Following is first example of ComplexNumber class and then creating its ClassModel for writing to Complex.cs<br>
 Class we want to generate:
 ````csharp
 using System;
