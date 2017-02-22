@@ -167,7 +167,7 @@ CsGenerator
 		|
 		|---Fields
 		|
-		|---Constructors
+		|---Constructors (DefaultConstructor first)
 		|	|---Attributes
 		|	|	|--- Parameters
 		|	|
