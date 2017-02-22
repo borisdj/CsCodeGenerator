@@ -152,7 +152,7 @@ complexNumberFile.Classes.Add(complexNumberClass.Name, complexNumberClass);
 
 CsGenerator csGenerator = new CsGenerator();
 csGenerator.Files.Add(complexNumberFile.Name, complexNumberFile);
-//csGenerator.CreateFiles(); //Console.Write(complexNumberFile); 
+csGenerator.CreateFiles(); //Console.Write(complexNumberFile); 
 ````
 
 ## GeneratorModel Composition Structure:
