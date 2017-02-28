@@ -8,14 +8,13 @@ namespace CsCodeGenerator
     {
         public EnumModel(string name = null)
         {
-            base.BuiltInDataType = null;
             base.CustomDataType = Util.Enum;
             base.Name = name;
         }
 
         public override int IndentSize { get; set; } = (int)IndentType.Single * CsGenerator.DefaultTabSize;
 
-        public new BuiltInDataType? BuiltInDataType => base.BuiltInDataType;
+        public new BuiltInDataType? BuiltInDataType { get; }
 
         public new string CustomDataType => base.CustomDataType;
 
