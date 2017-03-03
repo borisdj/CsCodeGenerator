@@ -8,7 +8,6 @@ namespace CsCodeGenerator
     {
         public ClassModel(string name = null)
         {
-            base.BuiltInDataType = null;
             base.CustomDataType = Util.Class;
             base.Name = name;
             Constructors.Add(new Constructor(Name) { IsVisible = false, BracesInNewLine = false });
@@ -18,14 +17,15 @@ namespace CsCodeGenerator
 
         public bool HasPropertiesSpacing { get; set; } = true;
 
-        public new BuiltInDataType? BuiltInDataType => base.BuiltInDataType;
+        public new BuiltInDataType? BuiltInDataType { get; }
 
-        public new string CustomDataType => base.CustomDataType;
+        public new string CustomDataType => Util.Class;
 
         public new string Name => base.Name;
 
         public string BaseClass { get; set; }
-        public string BaseClassFormated => BaseClass != null ? $" : {BaseClass}" : "";
+
+        public List<string> Interfaces { get; set; } = new List<string>();
 
         public virtual Dictionary<string, Field> Fields { get; set; } = new Dictionary<string, Field>();
 
@@ -48,7 +48,11 @@ namespace CsCodeGenerator
 
         public override string ToString()
         {
-            string result = base.ToString() + BaseClassFormated;
+            string result = base.ToString();
+            result += (BaseClass != null || Interfaces?.Count > 0) ? $" : " : "";
+            result += BaseClass != null ? BaseClass : "";
+            result += (BaseClass != null && Interfaces?.Count > 0) ? $", " : "";
+            result += Interfaces?.Count > 0 ? string.Join(", ", Interfaces) : "";
             result += Util.NewLine + Indent + "{";
 
             result += String.Join("", Fields.Values);

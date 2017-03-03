@@ -157,12 +157,14 @@ namespace CsCodeGenerator.Tests
             nestedClass.Comment = "Some Comment";
 
             ClassModel parentClass = new ClassModel("ParentClass");
+            parentClass.BaseClass = "BaseClass";
+            parentClass.Interfaces.Add("ParentInterface");
             parentClass.NestedClasses.Add(nestedClass.Name, nestedClass);
 
             string result = parentClass.ToString() + Util.NewLine;
 
             string text = GetNestedClassText();
-
+            
             Assert.Equal(result, text);
         }
 
@@ -171,7 +173,7 @@ namespace CsCodeGenerator.Tests
             var lines = new List<string>
             {
                 "",
-                "    public class ParentClass",
+                "    public class ParentClass : BaseClass, ParentInterface", 
                 "    {",
                 "",
                 "        // Some Comment",
@@ -209,6 +211,48 @@ namespace CsCodeGenerator.Tests
                 "    {",
                 "        Val1 = 1,",
                 "        Val2 = 2",
+                "    }"
+            };
+            string text = GetText(lines);
+            return text;
+        }
+
+        [Fact]
+        public void ShouldWriteInterface()
+        {
+            // Interfaces
+            InterfaceModel myInterfaceModel = new InterfaceModel("MyInterfaceModel");
+            myInterfaceModel.Properties.Add("Prop1", new Property(BuiltInDataType.Int, "Prop1"));
+            myInterfaceModel.Properties.Add("Prop2", new Property(BuiltInDataType.String, "Prop2"));
+            
+            myInterfaceModel.Methods.Add("Method1", new Method(BuiltInDataType.Void, "Method1"));
+
+            string result = myInterfaceModel.ToString() + Util.NewLine;
+
+            string text = GetInterfaceText();
+
+            Debug.WriteLine(result);
+            Assert.Equal(result, text);
+        }
+
+        public interface SomeInt
+        {
+            int Ba { get; set; }
+
+            void Order();
+        }
+
+        private string GetInterfaceText()
+        {
+            var lines = new List<string>
+            {
+                "",
+                "    interface MyInterfaceModel",
+                "    {",
+                "        int Prop1 { get; set; }",
+                "        string Prop2 { get; set; }",
+                "",
+                "        void Method1();",
                 "    }"
             };
             string text = GetText(lines);
