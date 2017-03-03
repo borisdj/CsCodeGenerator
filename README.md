@@ -1,7 +1,7 @@
 ## CodeGenerator
 This is a small .NET Core library that enables easy c# code generation based on Classes and its elements.<br>
 It has ability to create `ClassModels`, specify their Members (`Constructor`, `Field`, `Property`, `Method`) including `Attributes` and `Parameters` and write it to .cs files.<br>
-Defining `namespace` and `using` Directives is supported as well. Library can also generate `Enums` and `Interfaces` as well as `NestedClasses` inside parent class.
+Defining `namespace` and `using` Directives is supported as well. Library can also generate `Enums` and `Interfaces` as well and `NestedClasses` inside parent class.
 
 ## How to use it
 1. Install nuget package
