@@ -229,10 +229,11 @@ namespace CsCodeGenerator.Tests
             ClassModel complexNumberClass = new ClassModel(complexNumberText);
             complexNumberClass.SingleKeyWord = KeyWord.Partial; //or: complexNumberClass.KeyWords.Add(KeyWord.Partial);
 
-            complexNumberClass.AddAttribute(new AttributeModel("Description")
+            var descriptionAttribute = new AttributeModel("Description")
             {
                 SingleParameter = new Parameter(@"""Some class info""")
-            });
+            };
+            complexNumberClass.AddAttribute(descriptionAttribute);
 
             complexNumberClass.DefaultConstructor.IsVisible = true;
 
