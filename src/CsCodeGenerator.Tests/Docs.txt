@@ -34,17 +34,18 @@ CsGenerator
 
 INHERITANCE STRUCTURE:
 **********************
-Parameter			   BaseElement			   Attribute
+Attribute			   BaseElement			   Parameter
 						    |
-	-------------------------------------------------
-   	|				|				|				|
-ClassModel		ClassModel		  Field			 Method		
-									|				|
-								Property	   Constructor
+	   ------------------------------------------------------------------
+   	   |				|				|				|				|
+InterfaceModel		EnumModel		ClassModel		  Field			 Method
+														|				|
+													Property	   Constructor
 
-Parameter
 Attribute
+Parameter
 BaseElement (of Class) - abstract
+InterfaceModel: BaseElement
 EnumModel	: BaseElement
 ClassModel	: BaseElement
 Field		: BaseElement

@@ -42,8 +42,8 @@ namespace CsCodeGenerator
         public virtual Dictionary<string, Method> Methods { get; set; } = new Dictionary<string, Method>();
 
         public virtual Dictionary<string, ClassModel> NestedClasses { get; set; } = new Dictionary<string, ClassModel>();
-        // Nested indent have to set for each Nested element and subelement separately, or afte genration manualy to select nested code and indet it with tab
-        // Setting it automaticaly and oropagating could be done if The parent sets the child's parent reference (to itself) when the child is added/assigned to a parent. Parent setter is internal.
+        // Nested indent have to be set for each Nested element and subelement separately, or after generation manualy to select nested code and indent it with tab
+        // Setting it automaticaly and propagating could be done if the parent sets the child's parent reference (to itself) when the child is added/assigned to a parent. Parent setter is internal.
         //   http://softwareengineering.stackexchange.com/questions/261453/what-is-the-best-way-to-initialize-a-childs-reference-to-its-parent
 
         public override string ToString()
