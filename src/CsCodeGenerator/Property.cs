@@ -12,7 +12,7 @@ namespace CsCodeGenerator
 
         public Property(string customDataType, string name) : base(customDataType, name) { }
 
-        public new Dictionary<string, AttributeModel> Attributes { get; set; } = new Dictionary<string, AttributeModel>();
+        public override bool HasAttributes => true;
 
         public override AccessModifier AccessModifier { get; set; } = AccessModifier.Public;
 

@@ -26,6 +26,7 @@ namespace CsCodeGenerator
 
         public virtual string Comment { get; set; }
 
+        public virtual bool HasAttributes => true;
         public virtual Dictionary<string, AttributeModel> Attributes { get; set; } = new Dictionary<string, AttributeModel>();
 
         public virtual AccessModifier AccessModifier { get; set; } = AccessModifier.Public;
@@ -37,7 +38,7 @@ namespace CsCodeGenerator
 
         public virtual BuiltInDataType? BuiltInDataType { get; set; }
         public virtual string CustomDataType { get; set; }
-        protected string DataTypeFormated => CustomDataType == null ? BuiltInDataType?.ToTextLower() : CustomDataType;
+        protected string DataTypeFormated => CustomDataType ?? BuiltInDataType?.ToTextLower();
 
         public virtual string Name { get; set; }
 
@@ -48,7 +49,7 @@ namespace CsCodeGenerator
         public override string ToString()
         {
             string result = Comment != null ? (Util.NewLine + Indent + "// " + Comment) : "";
-            result += Attributes.ToStringList(Indent);
+            result += HasAttributes ? Attributes.ToStringList(Indent) : "";
             result += Util.NewLine + Signature;
             return result;
         }

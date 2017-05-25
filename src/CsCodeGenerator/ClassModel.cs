@@ -1,6 +1,7 @@
 ﻿using CsCodeGenerator.Enums;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CsCodeGenerator
 {
@@ -57,10 +58,11 @@ namespace CsCodeGenerator
 
             result += String.Join("", Fields.Values);
 
-            bool hasFieldsBeforeConstructor = Constructors.Count > 0 && DefaultConstructor.IsVisible && Fields.Count > 0;
+            var visibleConstructors = Constructors.Where(a => a.IsVisible);
+            bool hasFieldsBeforeConstructor = visibleConstructors.Any() && Fields.Any();
             result += hasFieldsBeforeConstructor ? Util.NewLine : "";
-            result += String.Join(Util.NewLine, Constructors);
-            bool hasMembersAfterConstructor = (DefaultConstructor.IsVisible || Fields.Count > 0) && (Properties.Count > 0 || Methods.Count > 0);
+            result += String.Join(Util.NewLine, visibleConstructors);
+            bool hasMembersAfterConstructor = (visibleConstructors.Any() || Fields.Any()) && (Properties.Any() || Methods.Any());
             result += hasMembersAfterConstructor ? Util.NewLine : "";
 
             result += String.Join(HasPropertiesSpacing ? Util.NewLine : "", Properties.Values);

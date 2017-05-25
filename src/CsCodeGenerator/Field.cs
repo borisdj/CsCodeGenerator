@@ -19,7 +19,7 @@ namespace CsCodeGenerator
         public virtual string DefaultValue { get; set; }
         protected string DefaultValueFormated => DefaultValue != null ? " = " + DefaultValue : "";
 
-        public new Dictionary<string, AttributeModel> Attributes { get; } = null;
+        public override bool HasAttributes => false;
 
         protected virtual string Ending { get; } = ";";
 
