@@ -3,6 +3,8 @@ This is a small .NET Core library that enables easy c# code generation based on 
 It has ability to create `ClassModels`, specify their Members (`Constructor`, `Field`, `Property`, `Method`) including `Attributes` and `Parameters` and write it to .cs files.<br>
 Defining `namespace` and `using` Directives is supported as well. Library can also generate `Enums` and `Interfaces` as well and `NestedClasses` inside parent class.
 
+[![NuGet](https://img.shields.io/npm/l/express.svg)](https://github.com/borisdj/CsCodeGenerator/blob/master/LICENSE)
+
 ## How to use it
 1. Install [nuget](https://www.nuget.org/packages/CsCodeGenerator/) package (latest version 1.0.2)
   'Install-Package CsCodeGenerator'
