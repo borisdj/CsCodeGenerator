@@ -4,7 +4,7 @@ It has ability to create `ClassModels`, specify their Members (`Constructor`, `F
 Defining `namespace` and `using` Directives is supported as well. Library can also generate `Enums` and `Interfaces` as well and `NestedClasses` inside parent class.
 
 ## How to use it
-1. Install nuget package
+1. Install [nuget](https://www.nuget.org/packages/CsCodeGenerator/) package (latest version 1.0.2)
   'Install-Package CsCodeGenerator'
 2. Following is first example of ComplexNumber class and then creating its ClassModel for writing to Complex.cs<br>
 
