@@ -15,7 +15,7 @@ namespace CsCodeGenerator
 
         public string Path { get; set; }
 
-        public Dictionary<string, FileModel> Files { get; set; } = new Dictionary<string, FileModel>();
+        public List<FileModel> Files { get; set; } = new List<FileModel>();
         
         public void CreateFiles()
         {
@@ -29,31 +29,22 @@ namespace CsCodeGenerator
             if (OutputDirectory == null)
             {
                 string message = "Generator.OutputDirectory not set!";
-                Console.WriteLine(message);
                 throw new InvalidOperationException(message);
             }
 
             if (!Directory.Exists(path + OutputDirectory))
             {
                 Directory.CreateDirectory(OutputDirectory);
-                Console.WriteLine("Created folder: " + OutputDirectory);
             }
 
-            Console.WriteLine("Created files: ");
-            int i = 1;
-            foreach (var file in Files.Values)
+            foreach (var file in Files)
             {
                 string filePath = $@"{path}\{OutputDirectory}\{file.FullName}";
                 using (StreamWriter writer = File.CreateText(filePath))
                 {
                     writer.Write(file);
-                    Console.WriteLine($"  {i}. {file.FullName}");
-                    i++;
                 }
             }
-
-            Console.WriteLine("Press any key to close.");
-            Console.ReadKey();
         }
     }
 }

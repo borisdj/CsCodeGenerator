@@ -26,9 +26,9 @@ namespace CsCodeGenerator
 
     public static class AttributeModelExtensions
     {
-        public static string ToStringList(this Dictionary<string, AttributeModel> attributes, string indent)
+        public static string ToStringList(this List<AttributeModel> attributes, string indent)
         {
-            string result = attributes.Count > 0 ? Util.NewLine + indent + String.Join(Util.NewLine + indent, attributes.Values) : "";
+            string result = attributes.Count > 0 ? Util.NewLine + indent + String.Join(Util.NewLine + indent, attributes) : "";
             return result;
         }
     }

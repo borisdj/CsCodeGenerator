@@ -21,9 +21,9 @@ namespace CsCodeGenerator
 
         public string FullName => Name + "." + Extension;
 
-        public Dictionary<string, EnumModel> Enums { get; set; } = new Dictionary<string, EnumModel>();
+        public List<EnumModel> Enums { get; set; } = new List<EnumModel>();
 
-        public Dictionary<string, ClassModel> Classes { get; set; } = new Dictionary<string, ClassModel>();
+        public List<ClassModel> Classes { get; set; } = new List<ClassModel>();
 
         public void LoadUsingDirectives(List<string> usingDirectives)
         {
@@ -35,12 +35,13 @@ namespace CsCodeGenerator
 
         public override string ToString()
         {
-            string result = String.Join(Util.NewLine, UsingDirectives);
-            result += Util.NewLineDouble + Namespace;
+            string usingText = UsingDirectives.Count > 0 ? Util.Using + " " : "";
+            string result = usingText + String.Join(Util.NewLine + usingText, UsingDirectives);
+            result += Util.NewLineDouble + Util.Namespace + " " + Namespace;
             result += Util.NewLine + "{";
-            result += String.Join(Util.NewLine, Enums.Values);
+            result += String.Join(Util.NewLine, Enums);
             result += (Enums.Count > 0 && Classes.Count > 0) ? Util.NewLine : "";
-            result += String.Join(Util.NewLine, Classes.Values);
+            result += String.Join(Util.NewLine, Classes);
             result += Util.NewLine + "}";
             result += Util.NewLine;
             return result;

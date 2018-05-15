@@ -28,7 +28,7 @@ namespace CsCodeGenerator
 
         public List<string> Interfaces { get; set; } = new List<string>();
 
-        public virtual Dictionary<string, Field> Fields { get; set; } = new Dictionary<string, Field>();
+        public virtual List<Field> Fields { get; set; } = new List<Field>();
 
         public virtual List<Constructor> Constructors { get; set; } = new List<Constructor>();
 
@@ -38,11 +38,11 @@ namespace CsCodeGenerator
             set { Constructors[0] = value; }
         }
 
-        public virtual Dictionary<string, Property> Properties { get; set; } = new Dictionary<string, Property>();
+        public virtual List<Property> Properties { get; set; } = new List<Property>();
 
-        public virtual Dictionary<string, Method> Methods { get; set; } = new Dictionary<string, Method>();
+        public virtual List<Method> Methods { get; set; } = new List<Method>();
 
-        public virtual Dictionary<string, ClassModel> NestedClasses { get; set; } = new Dictionary<string, ClassModel>();
+        public virtual List<ClassModel> NestedClasses { get; set; } = new List<ClassModel>();
         // Nested indent have to be set for each Nested element and subelement separately, or after generation manualy to select nested code and indent it with tab
         // Setting it automaticaly and propagating could be done if the parent sets the child's parent reference (to itself) when the child is added/assigned to a parent. Parent setter is internal.
         //   http://softwareengineering.stackexchange.com/questions/261453/what-is-the-best-way-to-initialize-a-childs-reference-to-its-parent
@@ -56,7 +56,7 @@ namespace CsCodeGenerator
             result += Interfaces?.Count > 0 ? string.Join(", ", Interfaces) : "";
             result += Util.NewLine + Indent + "{";
 
-            result += String.Join("", Fields.Values);
+            result += String.Join("", Fields);
 
             var visibleConstructors = Constructors.Where(a => a.IsVisible);
             bool hasFieldsBeforeConstructor = visibleConstructors.Any() && Fields.Any();
@@ -65,14 +65,14 @@ namespace CsCodeGenerator
             bool hasMembersAfterConstructor = (visibleConstructors.Any() || Fields.Any()) && (Properties.Any() || Methods.Any());
             result += hasMembersAfterConstructor ? Util.NewLine : "";
 
-            result += String.Join(HasPropertiesSpacing ? Util.NewLine : "", Properties.Values);
+            result += String.Join(HasPropertiesSpacing ? Util.NewLine : "", Properties);
 
             bool hasPropertiesAndMethods = Properties.Count > 0 && Methods.Count > 0;
             result += hasMembersAfterConstructor ? Util.NewLine : "";
-            result += String.Join(Util.NewLine, Methods.Values);
+            result += String.Join(Util.NewLine, Methods);
             
             result += NestedClasses.Count > 0 ? Util.NewLine : "";
-            result += String.Join(Util.NewLine, NestedClasses.Values);
+            result += String.Join(Util.NewLine, NestedClasses);
 
             result += Util.NewLine + Indent + "}";
             return result;

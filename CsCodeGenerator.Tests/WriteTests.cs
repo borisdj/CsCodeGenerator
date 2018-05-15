@@ -117,12 +117,12 @@ namespace CsCodeGenerator.Tests
                 {
                     BodyLines = new List<string> { "return value % 2 == 1;" }
                 }
-            }.ToDictionary(a => a.Name, a => a);
+            };
 
-            methods["IsOdd"].Parameters.Add(new Parameter(BuiltInDataType.Int, "value"));
-            methods["IsOdd"].AddAttribute(new AttributeModel("Authorize"));
+            methods.Single(a => a.Name == "IsOdd").Parameters.Add(new Parameter(BuiltInDataType.Int, "value"));
+            methods.Single(a => a.Name == "IsOdd").AddAttribute(new AttributeModel("Authorize"));
 
-            string result = String.Join(Util.NewLine, methods.Values) + Util.NewLine;
+            string result = String.Join(Util.NewLine, methods) + Util.NewLine;
 
             string text = GetMethodsText();
 
@@ -159,7 +159,7 @@ namespace CsCodeGenerator.Tests
             ClassModel parentClass = new ClassModel("ParentClass");
             parentClass.BaseClass = "BaseClass";
             parentClass.Interfaces.Add("ParentInterface");
-            parentClass.NestedClasses.Add(nestedClass.Name, nestedClass);
+            parentClass.NestedClasses.Add(nestedClass);
 
             string result = parentClass.ToString() + Util.NewLine;
 
@@ -192,8 +192,8 @@ namespace CsCodeGenerator.Tests
         {
             // Enums
             EnumModel myEnumModel = new EnumModel("MyEnumModel");
-            myEnumModel.EnumValues.Add("Val1", new EnumValue("Val1", 1));
-            myEnumModel.EnumValues.Add("Val2", new EnumValue("Val2", 2));
+            myEnumModel.EnumValues.Add(new EnumValue("Val1", 1));
+            myEnumModel.EnumValues.Add(new EnumValue("Val2", 2));
 
             string result = myEnumModel.ToString() + Util.NewLine;
 
@@ -222,10 +222,10 @@ namespace CsCodeGenerator.Tests
         {
             // Interfaces
             InterfaceModel myInterfaceModel = new InterfaceModel("MyInterfaceModel");
-            myInterfaceModel.Properties.Add("Prop1", new Property(BuiltInDataType.Int, "Prop1"));
-            myInterfaceModel.Properties.Add("Prop2", new Property(BuiltInDataType.String, "Prop2"));
+            myInterfaceModel.Properties.Add(new Property(BuiltInDataType.Int, "Prop1"));
+            myInterfaceModel.Properties.Add(new Property(BuiltInDataType.String, "Prop2"));
             
-            myInterfaceModel.Methods.Add("Method1", new Method(BuiltInDataType.Void, "Method1"));
+            myInterfaceModel.Methods.Add(new Method(BuiltInDataType.Void, "Method1"));
 
             string result = myInterfaceModel.ToString() + Util.NewLine;
 
@@ -264,10 +264,10 @@ namespace CsCodeGenerator.Tests
         {
             var usingDirectives = new List<string>
             {
-                "using System;",
-                "using System.ComponentModel;"
+                "System;",
+                "System.ComponentModel;"
             };
-            string fileNameSpace = $"{Util.Namespace} CsCodeGenerator.Tests";
+            string fileNameSpace = "CsCodeGenerator.Tests";
             string complexNumberText = "ComplexNumber";
 
             ClassModel complexNumberClass = new ClassModel(complexNumberText);
@@ -288,13 +288,13 @@ namespace CsCodeGenerator.Tests
             secondConstructor.BodyLines.Add("Imaginary = imaginary;");
             complexNumberClass.Constructors.Add(secondConstructor);
 
-            var fields = new Field[]
+            var fields = new List<Field>
             {
                 new Field(BuiltInDataType.Double, "PI") { SingleKeyWord = KeyWord.Const, DefaultValue = "3.14" },
                 new Field(BuiltInDataType.String, "remark") { AccessModifier = AccessModifier.Private },
-            }.ToDictionary(a => a.Name, a => a);
+            };
 
-            var properties = new Property[]
+            var properties = new List<Property>
             {
                 new Property(BuiltInDataType.String, "DefaultFormat")
                 {
@@ -312,9 +312,9 @@ namespace CsCodeGenerator.Tests
                     SetterBody = "remark = value"
 
                 },
-            }.ToDictionary(a => a.Name, a => a);
+            };
 
-            var methods = new Method[]
+            var methods = new List<Method>
             {
                 new Method(BuiltInDataType.Double, "Modul")
                 {
@@ -337,7 +337,7 @@ namespace CsCodeGenerator.Tests
                     KeyWords = new List<KeyWord> { KeyWord.New, KeyWord.Virtual },
                     BodyLines = new List<string> { "return $\"({Real:0.00}, {Imaginary:0.00})\";" }
                 }
-            }.ToDictionary(a => a.Name, a => a);
+            };
 
             complexNumberClass.Fields = fields;
             complexNumberClass.Properties = properties;
@@ -346,10 +346,10 @@ namespace CsCodeGenerator.Tests
             FileModel complexNumberFile = new FileModel(complexNumberText);
             complexNumberFile.LoadUsingDirectives(usingDirectives);
             complexNumberFile.Namespace = fileNameSpace;
-            complexNumberFile.Classes.Add(complexNumberClass.Name, complexNumberClass);
+            complexNumberFile.Classes.Add(complexNumberClass);
 
             CsGenerator csGenerator = new CsGenerator();
-            csGenerator.Files.Add(complexNumberFile.Name, complexNumberFile);
+            csGenerator.Files.Add(complexNumberFile);
             //csGenerator.CreateFiles(); //Console.Write(complexNumberFile); 
 
             string result = complexNumberFile.ToString();
@@ -433,11 +433,12 @@ namespace CsCodeGenerator.Tests
 
         private FileModel GetEntityUserFile()
         {
-            string fileNameSpace = $"{Util.Namespace} CsCodeGenerator.Tests";
+            string fileNameSpace = "CsCodeGenerator.Tests";
             string userText = "User";
+            string textFirstName = "FirstName"; //nameof(User.FirstName);
 
             // Properties
-            var userProperties = new Property[]
+            var userProperties = new List<Property>
             {
                 new Property(BuiltInDataType.Int, "UserId"),
                 new Property(BuiltInDataType.String, "FirstName"),
@@ -445,7 +446,7 @@ namespace CsCodeGenerator.Tests
                 new Property(BuiltInDataType.String, "Address"),
                 new Property(CommonDataType.DateTime.ToString(), "DateOfBirth"),
                 new Property(BuiltInDataType.String, "FullName") { IsGetOnly = true, IsAutoImplemented = false, GetterBody = "FirstName + FamilyName" }
-            }.ToDictionary(a => a.Name, a => a);
+            };
             
             var lastNameColumAttributeParams = new List<Parameter>
             {
@@ -453,10 +454,10 @@ namespace CsCodeGenerator.Tests
                 new Parameter() { Name = "Order", Value = "2" }
             };
 
-            userProperties["UserId"].AddAttribute(new AttributeModel("Key"));
-            userProperties["FirstName"].AddAttribute(new AttributeModel("Column") { SingleParameter = new Parameter { Name = "Order", Value = "1" } });
-            userProperties["FamilyName"].AddAttribute(new AttributeModel("Column") { Parameters = lastNameColumAttributeParams });
-            userProperties["FullName"].AddAttribute(new AttributeModel("NotMapped"));
+            userProperties.Single(a => a.Name == "UserId").AddAttribute(new AttributeModel("Key"));
+            userProperties.Single(a => a.Name == "FirstName").AddAttribute(new AttributeModel("Column") { SingleParameter = new Parameter { Name = "Order", Value = "1" } });
+            userProperties.Single(a => a.Name == "FamilyName").AddAttribute(new AttributeModel("Column") { Parameters = lastNameColumAttributeParams });
+            userProperties.Single(a => a.Name == "FullName").AddAttribute(new AttributeModel("NotMapped"));
 
             var userTableAttributeParams = new List<Parameter>
             {
@@ -464,24 +465,41 @@ namespace CsCodeGenerator.Tests
                 new Parameter() { Name = "Schema", Value = @"""tmp""" }
             };
 
+            /*var methods = new List<Method>
+            {
+                new Method(BuiltInDataType.Bool, "TestMetod")
+                {
+                    BodyLines = new List<string>
+                    {
+                        "var check = true;",
+                        "if(checked == true)",
+                        "{",
+                        new String(' ', CsGenerator.DefaultTabSize) + "checked = false;",
+                        "}",
+                        "return check;"
+                    }
+                }
+            };*/
+
             // Class
             ClassModel userClass = new ClassModel(userText);
             userClass.SingleKeyWord = KeyWord.Partial;
             userClass.AddAttribute(new AttributeModel("Table") { Parameters = userTableAttributeParams });
             userClass.Properties = userProperties;
+            //userClass.Methods = methods;
 
             var usingDirectives = new List<string>
             {
-                "using System;",
-                "using System.ComponentModel.DataAnnotations;",
-                "using System.ComponentModel.DataAnnotations.Schema;"
+                "System;",
+                "System.ComponentModel.DataAnnotations;",
+                "System.ComponentModel.DataAnnotations.Schema;"
             };
 
             // File
             FileModel userFile = new FileModel(userText);
             userFile.LoadUsingDirectives(usingDirectives);
             userFile.Namespace = fileNameSpace;
-            userFile.Classes.Add(userClass.Name, userClass);
+            userFile.Classes.Add(userClass);
 
             return userFile;
         }
@@ -526,8 +544,8 @@ namespace CsCodeGenerator.Tests
 
         // VS has Bug that lockes files on writing
         // : Severity Code Description Project File Line Cannot open '.pdb' because it is being used by another process...
-        /*
-        [Theory]
+        
+        /*[Theory]
         [InlineData(null)]
         [InlineData("Generated")]*/
         public void ShouldWriteToDiskEntityUserFile(string directory)
@@ -536,7 +554,7 @@ namespace CsCodeGenerator.Tests
             csGenerator.OutputDirectory = directory ?? csGenerator.OutputDirectory;
 
             FileModel userFile = GetEntityUserFile();
-            csGenerator.Files.Add(userFile.Name, userFile);
+            csGenerator.Files.Add(userFile);
 
             csGenerator.CreateFiles();
             List<string> fileLines = ReadFileFromDisk(csGenerator.Path);

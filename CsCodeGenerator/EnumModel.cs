@@ -20,7 +20,7 @@ namespace CsCodeGenerator
 
         public new string Name => base.Name;
 
-        public Dictionary<string, EnumValue> EnumValues { get; set; } = new Dictionary<string, EnumValue>();
+        public List<EnumValue> EnumValues { get; set; } = new List<EnumValue>();
 
         public override string ToString()
         {
@@ -28,7 +28,7 @@ namespace CsCodeGenerator
             result += Util.NewLine + Indent + "{";
 
             result += EnumValues.Count > 0 ? Util.NewLine : "";
-            result += String.Join("," + Util.NewLine, EnumValues.Values);
+            result += String.Join("," + Util.NewLine, EnumValues);
             result += Util.NewLine + Indent + "}";
             return result;
         }

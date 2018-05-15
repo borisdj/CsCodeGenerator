@@ -27,7 +27,7 @@ namespace CsCodeGenerator
         public virtual string Comment { get; set; }
 
         public virtual bool HasAttributes => true;
-        public virtual Dictionary<string, AttributeModel> Attributes { get; set; } = new Dictionary<string, AttributeModel>();
+        public virtual List<AttributeModel> Attributes { get; set; } = new List<AttributeModel>();
 
         public virtual AccessModifier AccessModifier { get; set; } = AccessModifier.Public;
         protected string AccessFormated => Indent + AccessModifier.ToTextLower() + " ";
@@ -44,7 +44,7 @@ namespace CsCodeGenerator
 
         public virtual string Signature => $"{AccessFormated}{KeyWordsFormated}{DataTypeFormated} {Name}";
 
-        public void AddAttribute(AttributeModel attributeModel) => Attributes?.Add(attributeModel.Name, attributeModel);
+        public void AddAttribute(AttributeModel attributeModel) => Attributes?.Add(attributeModel);
 
         public override string ToString()
         {
