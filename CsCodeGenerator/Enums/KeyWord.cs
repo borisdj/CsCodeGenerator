@@ -14,6 +14,7 @@ namespace CsCodeGenerator.Enums
         Override,
         Sealed,
         Const,
-        Async
+        Async,
+        ReadOnly,
     }
 }
