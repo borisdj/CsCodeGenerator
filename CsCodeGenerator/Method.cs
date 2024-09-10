@@ -1,5 +1,4 @@
 ﻿using CsCodeGenerator.Enums;
-using System;
 using System.Collections.Generic;
 
 namespace CsCodeGenerator
@@ -14,8 +13,8 @@ namespace CsCodeGenerator
 
         public Method(AccessModifier accessModifier, KeyWord singleKeyWord, BuiltInDataType builtInDataType, string name) : base(builtInDataType, name)
         {
-            this.AccessModifier = accessModifier;
-            this.KeyWords.Add(singleKeyWord);
+            AccessModifier = accessModifier;
+            KeyWords.Add(singleKeyWord);
         }
 
         public virtual bool IsVisible { get; set; } = true;
@@ -39,7 +38,7 @@ namespace CsCodeGenerator
             string bracesPrefix = BracesInNewLine ? (Util.NewLine + Indent) : " ";
             string curentIndent = Util.NewLine + Indent + CsGenerator.IndentSingle;
             result += bracesPrefix + "{";
-            result += BodyLines.Count == 0 ? "" : (BracesInNewLine ? curentIndent : " ") + String.Join(curentIndent, BodyLines);
+            result += BodyLines.Count == 0 ? "" : (BracesInNewLine ? curentIndent : " ") + string.Join(curentIndent, BodyLines);
             result += bracesPrefix + "}";
             return result;
         }

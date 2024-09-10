@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace CsCodeGenerator.Enums
+﻿namespace CsCodeGenerator.Enums
 {
     public enum BuiltInDataType
     {

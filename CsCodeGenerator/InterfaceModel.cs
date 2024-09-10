@@ -1,5 +1,4 @@
 ﻿using CsCodeGenerator.Enums;
-using System;
 using System.Collections.Generic;
 
 namespace CsCodeGenerator
@@ -29,10 +28,10 @@ namespace CsCodeGenerator
             string result = base.ToString();
             result += Util.NewLine + Indent + "{";
 
-            result += String.Join("", Properties);
+            result += string.Join("", Properties);
             bool hasPropertiesAndMethods = Properties.Count > 0 && Methods.Count > 0;
             result += hasPropertiesAndMethods ? Util.NewLine : "";
-            result += String.Join(Util.NewLine, Methods);
+            result += string.Join(Util.NewLine, Methods);
 
             result += Util.NewLine + Indent + "}";
             result = result.Replace(AccessModifier.Public.ToTextLower() + " ", "");

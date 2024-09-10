@@ -1,6 +1,4 @@
 ﻿using CsCodeGenerator.Enums;
-using System;
-using System.Collections.Generic;
 
 namespace CsCodeGenerator
 {

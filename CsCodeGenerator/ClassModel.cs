@@ -61,18 +61,18 @@ namespace CsCodeGenerator
             var visibleConstructors = Constructors.Where(a => a.IsVisible);
             bool hasFieldsBeforeConstructor = visibleConstructors.Any() && Fields.Any();
             result += hasFieldsBeforeConstructor ? Util.NewLine : "";
-            result += String.Join(Util.NewLine, visibleConstructors);
+            result += string.Join(Util.NewLine, visibleConstructors);
             bool hasMembersAfterConstructor = (visibleConstructors.Any() || Fields.Any()) && (Properties.Any() || Methods.Any());
             result += hasMembersAfterConstructor ? Util.NewLine : "";
 
-            result += String.Join(HasPropertiesSpacing ? Util.NewLine : "", Properties);
+            result += string.Join(HasPropertiesSpacing ? Util.NewLine : "", Properties);
 
             bool hasPropertiesAndMethods = Properties.Count > 0 && Methods.Count > 0;
             result += hasMembersAfterConstructor ? Util.NewLine : "";
-            result += String.Join(Util.NewLine, Methods);
+            result += string.Join(Util.NewLine, Methods);
             
             result += NestedClasses.Count > 0 ? Util.NewLine : "";
-            result += String.Join(Util.NewLine, NestedClasses);
+            result += string.Join(Util.NewLine, NestedClasses);
 
             result += Util.NewLine + Indent + "}";
             return result;

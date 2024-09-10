@@ -7,7 +7,7 @@ namespace CsCodeGenerator.Test
     public partial class ComplexNumber
     {
         protected const double PI = 3.14;
-        private string remark;
+        private string? remark;
 
         public ComplexNumber() { }
 
@@ -23,7 +23,7 @@ namespace CsCodeGenerator.Test
 
         public double Imaginary { get; set; }
 
-        public virtual string Remark
+        public virtual string? Remark
         {
             get { return remark; }
             set { remark = value; }
@@ -36,9 +36,11 @@ namespace CsCodeGenerator.Test
 
         public ComplexNumber Add(ComplexNumber input)
         {
-            ComplexNumber result = new ComplexNumber();
-            result.Real = Real + input.Real;
-            result.Imaginary = Imaginary + input.Imaginary;
+            ComplexNumber result = new ComplexNumber
+            {
+                Real = Real + input.Real,
+                Imaginary = Imaginary + input.Imaginary
+            };
             return result;
         }
 

@@ -1,4 +1,5 @@
 ﻿using CsCodeGenerator.Enums;
+using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 using System.Diagnostics;
 using Xunit;
 
@@ -11,7 +12,7 @@ namespace CsCodeGenerator.Test
     {
         private string GetText(List<string> lines)
         {
-            string text = null;
+            string text = "";
             foreach (var line in lines)
                 text += line + Util.NewLine;
             return text;
@@ -23,17 +24,17 @@ namespace CsCodeGenerator.Test
             // Fields
             var fields = new List<Field>
             {
-                new Field(BuiltInDataType.Int, "field1"),
-                new Field(BuiltInDataType.Decimal, "field2") { AccessModifier = AccessModifier.Private, DefaultValue = "2.0m" },
-                new Field(BuiltInDataType.String, "field3") { SingleKeyWord = KeyWord.Static, DefaultValue = @"""text""" },
-                new Field(CommonDataType.DateTime.ToString(), "field4") { IndentSize = 0 },
-                new Field("List<Guid>", "field5") { Comment = "Remark: List used for Ids.", IndentSize = (int)IndentType.Single * CsGenerator.DefaultTabSize },
+                new (BuiltInDataType.Int, "field1"),
+                new (BuiltInDataType.Decimal, "field2") { AccessModifier = AccessModifier.Private, DefaultValue = "2.0m" },
+                new (BuiltInDataType.String, "field3") { SingleKeyWord = KeyWord.Static, DefaultValue = @"""text""" },
+                new (CommonDataType.DateTime.ToString(), "field4") { IndentSize = 0 },
+                new ("List<Guid>", "field5") { Comment = "Remark: List used for Ids.", IndentSize = (int)IndentType.Single * CsGenerator.DefaultTabSize },
             };
-            string result = String.Join("", fields) + Util.NewLine;
+            string result = string.Join("", fields) + Util.NewLine;
 
             string text = GetFieldsText();
 
-            Assert.Equal(result, text);
+            Assert.Equal(text, result);
         }
 
         private string GetFieldsText()
@@ -45,7 +46,9 @@ namespace CsCodeGenerator.Test
                 "        private decimal field2 = 2.0m;",
                 "        protected static string field3 = \"text\";",
                 "protected DateTime field4;",
+                "    /// <summary>",
                 "    // Remark: List used for Ids.",
+                "    /// <summary>",
                 "    protected List<Guid> field5;"
             };
             string text = GetText(lines);
@@ -58,11 +61,11 @@ namespace CsCodeGenerator.Test
             // Properties
             var properties = new List<Property>
             {
-                new Property(BuiltInDataType.Int, "Property1"),
-                new Property(BuiltInDataType.Decimal, "Property2") { AccessModifier = AccessModifier.Protected, DefaultValue = "2.0m" },
-                new Property(BuiltInDataType.String, "Property3") { SingleKeyWord = KeyWord.Static, DefaultValue = @"""text""" },
-                new Property(CommonDataType.DateTime.ToString(), "Property4"),
-                new Property("List<Guid>", "Property5")
+                new (BuiltInDataType.Int, "Property1"),
+                new (BuiltInDataType.Decimal, "Property2") { AccessModifier = AccessModifier.Protected, DefaultValue = "2.0m" },
+                new (BuiltInDataType.String, "Property3") { SingleKeyWord = KeyWord.Static, DefaultValue = @"""text""" },
+                new (CommonDataType.DateTime.ToString(), "Property4"),
+                new ("List<Guid>", "Property5")
                 {
                     Comment = "Remark: Manual implemented Property.",
                     IsAutoImplemented = false,
@@ -71,11 +74,11 @@ namespace CsCodeGenerator.Test
                 }
             };
             properties[0].AddAttribute(new AttributeModel("Key"));
-            string result = String.Join("", properties) + Util.NewLine;
+            string result = string.Join("", properties) + Util.NewLine;
 
             string text = GetPropertiesText();
 
-            Assert.Equal(result, text);
+            Assert.Equal(text, result);
         }
 
         private string GetPropertiesText()
@@ -88,7 +91,9 @@ namespace CsCodeGenerator.Test
                 "        protected decimal Property2 { get; set; } = 2.0m;",
                 "        public static string Property3 { get; set; } = \"text\";",
                 "        public DateTime Property4 { get; set; }",
+                "        /// <summary>",
                 "        // Remark: Manual implemented Property.",
+                "        /// <summary>",
                 "        public List<Guid> Property5",
                 "        {",
                 "            get { return field5; }",
@@ -105,25 +110,25 @@ namespace CsCodeGenerator.Test
             // Methods
             var methods = new List<Method>
             {
-                new Method(BuiltInDataType.Void, "Method1")
+                new (BuiltInDataType.Void, "Method1")
                 {
-                    BodyLines = new List<string> { "throw new NotImplementedException();" },
+                    BodyLines = ["throw new NotImplementedException();"],
                     BracesInNewLine = false
                 },
-                new Method(AccessModifier.Protected, KeyWord.Virtual, BuiltInDataType.Bool, "IsOdd")
+                new (AccessModifier.Protected, KeyWord.Virtual, BuiltInDataType.Bool, "IsOdd")
                 {
-                    BodyLines = new List<string> { "return value % 2 == 1;" }
+                    BodyLines = ["return value % 2 == 1;"]
                 }
             };
 
             methods.Single(a => a.Name == "IsOdd").Parameters.Add(new Parameter(BuiltInDataType.Int, "value"));
             methods.Single(a => a.Name == "IsOdd").AddAttribute(new AttributeModel("Authorize"));
 
-            string result = String.Join(Util.NewLine, methods) + Util.NewLine;
+            string result = string.Join(Util.NewLine, methods) + Util.NewLine;
 
             string text = GetMethodsText();
 
-            Assert.Equal(result, text);
+            Assert.Equal(text, result);
         }
 
         private string GetMethodsText()
@@ -147,14 +152,16 @@ namespace CsCodeGenerator.Test
         public void ShouldWriteNestedClass()
         {
             // Nested Class
-            ClassModel nestedClass = new ClassModel("MyNestedClass");
+            var nestedClass = new ClassModel ("MyNestedClass");
             nestedClass.IndentSize += CsGenerator.DefaultTabSize; // increase indent to every nested element
             nestedClass.DefaultConstructor.IsVisible = true;
             nestedClass.DefaultConstructor.IndentSize += CsGenerator.DefaultTabSize; // increase indent to every nested element
             nestedClass.Comment = "Some Comment";
 
-            ClassModel parentClass = new ClassModel("ParentClass");
-            parentClass.BaseClass = "BaseClass";
+            var parentClass = new ClassModel ("ParentClass")
+            {
+                BaseClass = "BaseClass"
+            };
             parentClass.Interfaces.Add("ParentInterface");
             parentClass.NestedClasses.Add(nestedClass);
 
@@ -162,7 +169,7 @@ namespace CsCodeGenerator.Test
 
             string text = GetNestedClassText();
 
-            Assert.Equal(result, text);
+            Assert.Equal(text, result);
         }
 
         private string GetNestedClassText()
@@ -173,7 +180,9 @@ namespace CsCodeGenerator.Test
                 "    public class ParentClass : BaseClass, ParentInterface",
                 "    {",
                 "",
+                "        /// <summary>",
                 "        // Some Comment",
+                "        /// <summary>",
                 "        public class MyNestedClass",
                 "        {",
                 "            public MyNestedClass() { }",
@@ -188,7 +197,7 @@ namespace CsCodeGenerator.Test
         public void ShouldWriteEnum()
         {
             // Enums
-            EnumModel myEnumModel = new EnumModel("MyEnumModel");
+            var myEnumModel = new EnumModel("MyEnumModel");
             myEnumModel.EnumValues.Add(new EnumValue("Val1", 1));
             myEnumModel.EnumValues.Add(new EnumValue("Val2", 2));
 
@@ -196,7 +205,7 @@ namespace CsCodeGenerator.Test
 
             string text = GetEnumText();
 
-            Assert.Equal(result, text);
+            Assert.Equal(text, result);
         }
 
         private string GetEnumText()
@@ -218,7 +227,7 @@ namespace CsCodeGenerator.Test
         public void ShouldWriteInterface()
         {
             // Interfaces
-            InterfaceModel myInterfaceModel = new InterfaceModel("MyInterfaceModel");
+            var myInterfaceModel = new InterfaceModel("MyInterfaceModel");
             myInterfaceModel.Properties.Add(new Property(BuiltInDataType.Int, "Prop1"));
             myInterfaceModel.Properties.Add(new Property(BuiltInDataType.String, "Prop2"));
 
@@ -229,10 +238,10 @@ namespace CsCodeGenerator.Test
             string text = GetInterfaceText();
 
             Debug.WriteLine(result);
-            Assert.Equal(result, text);
+            Assert.Equal(text, result);
         }
 
-        public interface SomeInt
+        public interface ISomeInt
         {
             int Ba { get; set; }
 
@@ -277,7 +286,7 @@ namespace CsCodeGenerator.Test
             complexNumberClass.AddAttribute(descriptionAttribute);
             complexNumberClass.DefaultConstructor.IsVisible = true;
 
-            Constructor secondConstructor = new Constructor(complexNumberClass.Name);
+            var secondConstructor = new Constructor(complexNumberClass.Name);
             secondConstructor.Parameters.Add(new Parameter(BuiltInDataType.Double, "real"));
             secondConstructor.Parameters.Add(new Parameter(BuiltInDataType.Double, "imaginary") { Value = "0" });
             secondConstructor.BodyLines.Add("Real = real;");
@@ -286,21 +295,21 @@ namespace CsCodeGenerator.Test
 
             var fields = new List<Field>
             {
-                new Field(BuiltInDataType.Double, "PI") { SingleKeyWord = KeyWord.Const, DefaultValue = "3.14" },
-                new Field(BuiltInDataType.String, "remark") { AccessModifier = AccessModifier.Private },
+                new (BuiltInDataType.Double, "PI") { SingleKeyWord = KeyWord.Const, DefaultValue = "3.14" },
+                new (BuiltInDataType.String, "remark") { AccessModifier = AccessModifier.Private },
             };
 
             var properties = new List<Property>
             {
-                new Property(BuiltInDataType.String, "DefaultFormat")
+                new (BuiltInDataType.String, "DefaultFormat")
                 {
                     SingleKeyWord = KeyWord.Static,
                     IsGetOnly = true,
                     DefaultValue = @"""a + b * i"""
                 },
-                new Property(BuiltInDataType.Double, "Real"),
-                new Property(BuiltInDataType.Double, "Imaginary"),
-                new Property(BuiltInDataType.String, "Remark")
+                new (BuiltInDataType.Double, "Real"),
+                new (BuiltInDataType.Double, "Imaginary"),
+                new (BuiltInDataType.String, "Remark")
                 {
                     SingleKeyWord = KeyWord.Virtual,
                     IsAutoImplemented = false,
@@ -312,11 +321,11 @@ namespace CsCodeGenerator.Test
 
             var methods = new List<Method>
             {
-                new Method(BuiltInDataType.Double, "Modul")
+                new (BuiltInDataType.Double, "Modul")
                 {
                     BodyLines = new List<string> { "return Math.Sqrt(Real * Real + Imaginary * Imaginary);" }
                 },
-                new Method(complexNumberText, "Add")
+                new (complexNumberText, "Add")
                 {
                     Parameters = new List<Parameter> { new Parameter("ComplexNumber", "input") },
                     BodyLines = new List<string>
@@ -327,11 +336,11 @@ namespace CsCodeGenerator.Test
                         "return result;"
                     }
                 },
-                new Method(BuiltInDataType.String, "ToString")
+                new (BuiltInDataType.String, "ToString")
                 {
                     Comment = "example of 2 KeyWords(new and virtual), usually here would be just virtual",
-                    KeyWords = new List<KeyWord> { KeyWord.New, KeyWord.Virtual },
-                    BodyLines = new List<string> { "return $\"({Real:0.00}, {Imaginary:0.00})\";" }
+                    KeyWords = [KeyWord.New, KeyWord.Virtual],
+                    BodyLines = ["return $\"({Real:0.00}, {Imaginary:0.00})\";"]
                 }
             };
 
@@ -339,12 +348,12 @@ namespace CsCodeGenerator.Test
             complexNumberClass.Properties = properties;
             complexNumberClass.Methods = methods;
 
-            FileModel complexNumberFile = new FileModel(complexNumberText);
+            var complexNumberFile = new FileModel(complexNumberText);
             complexNumberFile.LoadUsingDirectives(usingDirectives);
             complexNumberFile.Namespace = fileNameSpace;
             complexNumberFile.Classes.Add(complexNumberClass);
 
-            CsGenerator csGenerator = new CsGenerator();
+            var csGenerator = new CsGenerator();
             csGenerator.Files.Add(complexNumberFile);
             //csGenerator.CreateFiles(); //Console.Write(complexNumberFile); 
 
@@ -353,7 +362,7 @@ namespace CsCodeGenerator.Test
             string text = GetComplexNumberFileText();
 
             Debug.Write(result);
-            Assert.Equal(result, text);
+            Assert.Equal(text, result);
         }
 
         private string GetComplexNumberFileText()
@@ -404,7 +413,9 @@ namespace CsCodeGenerator.Test
                 "            return result;",
                 "        }",
                 "",
+                "        /// <summary>",
                 "        // example of 2 KeyWords(new and virtual), usually here would be just virtual",
+                "        /// <summary>",
                 "        public new virtual string ToString()",
                 "        {",
                 "            return $\"({Real:0.00}, {Imaginary:0.00})\";",
@@ -424,10 +435,10 @@ namespace CsCodeGenerator.Test
 
             string text = GetUserFileText();
 
-            Assert.Equal(result, text);
+            Assert.Equal(text, result);
         }
 
-        private FileModel GetEntityUserFile()
+        private static FileModel GetEntityUserFile()
         {
             string fileNameSpace = "CsCodeGenerator.Tests";
             string userText = "User";
@@ -541,10 +552,10 @@ namespace CsCodeGenerator.Test
         // VS has Bug that lockes files on writing
         // : Severity Code Description Project File Line Cannot open '.pdb' because it is being used by another process...
 
-        /*[Theory]
-        [InlineData(null)]
-        [InlineData("Generated")]*/
-        public void ShouldWriteToDiskEntityUserFile(string directory)
+        //[Theory]
+        //[InlineData(null)]
+        //[InlineData("Generated")]
+        public void ShouldWriteToDiskEntityUserFile(string directory) // TODO
         {
             CsGenerator csGenerator = new CsGenerator();
             csGenerator.OutputDirectory = directory ?? csGenerator.OutputDirectory;
@@ -559,7 +570,7 @@ namespace CsCodeGenerator.Test
 
             string text = GetText(fileLines);
 
-            Assert.Equal(result, text);
+            Assert.Equal(text, result);
         }
 
         private List<string> ReadFileFromDisk(string path)

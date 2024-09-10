@@ -11,18 +11,18 @@ namespace CsCodeGenerator
 
         public BaseElement(BuiltInDataType builtInDataType, string name)
         {
-            this.BuiltInDataType = builtInDataType;
-            this.Name = name;
+            BuiltInDataType = builtInDataType;
+            Name = name;
         }
 
         public BaseElement(string customDataType, string name)
         {
-            this.CustomDataType = customDataType;
-            this.Name = name;
+            CustomDataType = customDataType;
+            Name = name;
         }
 
         public virtual int IndentSize { get; set; } = (int)IndentType.Double * CsGenerator.DefaultTabSize;
-        public string Indent => new String(' ', IndentSize);
+        public string Indent => new string(' ', IndentSize);
 
         public virtual string Comment { get; set; }
 

@@ -1,9 +1,4 @@
-﻿using CsCodeGenerator.Enums;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-
-namespace CsCodeGenerator
+﻿namespace CsCodeGenerator
 {
     public static class Util
     {

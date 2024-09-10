@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace CsCodeGenerator
 {
@@ -36,12 +35,12 @@ namespace CsCodeGenerator
         public override string ToString()
         {
             string usingText = UsingDirectives.Count > 0 ? Util.Using + " " : "";
-            string result = usingText + String.Join(Util.NewLine + usingText, UsingDirectives);
+            string result = usingText + string.Join(Util.NewLine + usingText, UsingDirectives);
             result += Util.NewLineDouble + Util.Namespace + " " + Namespace;
             result += Util.NewLine + "{";
-            result += String.Join(Util.NewLine, Enums);
+            result += string.Join(Util.NewLine, Enums);
             result += (Enums.Count > 0 && Classes.Count > 0) ? Util.NewLine : "";
-            result += String.Join(Util.NewLine, Classes);
+            result += string.Join(Util.NewLine, Classes);
             result += Util.NewLine + "}";
             result += Util.NewLine;
             return result;

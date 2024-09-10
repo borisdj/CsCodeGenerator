@@ -1,5 +1,4 @@
 ﻿using CsCodeGenerator.Enums;
-using System;
 using System.Collections.Generic;
 
 namespace CsCodeGenerator
@@ -10,19 +9,19 @@ namespace CsCodeGenerator
 
         public Parameter(string value)
         {
-            this.Value = value;
+            Value = value;
         }
 
         public Parameter(BuiltInDataType builtInDataType, string name)
         {
-            this.BuiltInDataType = builtInDataType;
-            this.Name = name;
+            BuiltInDataType = builtInDataType;
+            Name = name;
         }
 
         public Parameter(string customDataType, string name)
         {
-            this.CustomDataType = customDataType;
-            this.Name = name;
+            CustomDataType = customDataType;
+            Name = name;
         }
         public KeyWord? KeyWord { get; set; }
 
@@ -38,7 +37,7 @@ namespace CsCodeGenerator
 
         public string DataTypeFormated => CustomDataType == null ? BuiltInDataType?.ToTextLower(" ") : CustomDataType + " ";
 
-        public string NameValueFormated => (String.IsNullOrEmpty(Name) || String.IsNullOrEmpty(Value)) ? Name + Value : Name + " = " + Value;
+        public string NameValueFormated => (string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Value)) ? Name + Value : Name + " = " + Value;
 
         public override string ToString() => KeyWordFormated + DataTypeFormated + NameValueFormated;
     }
@@ -47,7 +46,7 @@ namespace CsCodeGenerator
     {
         public static string ToStringList(this List<Parameter> parameters)
         {
-            string parametersString = String.Join(", ", parameters);
+            string parametersString = string.Join(", ", parameters);
             string result = $"({parametersString})";
             return result;
         }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace CsCodeGenerator
 {
@@ -8,7 +7,7 @@ namespace CsCodeGenerator
     {
         public AttributeModel(string name = null)
         {
-            this.Name = name;
+            Name = name;
         }
 
         public string Name { get; set; }
@@ -28,7 +27,7 @@ namespace CsCodeGenerator
     {
         public static string ToStringList(this List<AttributeModel> attributes, string indent)
         {
-            string result = attributes.Count > 0 ? Util.NewLine + indent + String.Join(Util.NewLine + indent, attributes) : "";
+            string result = attributes.Count > 0 ? Util.NewLine + indent + string.Join(Util.NewLine + indent, attributes) : "";
             return result;
         }
     }

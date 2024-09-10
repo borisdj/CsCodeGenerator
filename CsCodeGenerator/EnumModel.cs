@@ -1,5 +1,4 @@
 ﻿using CsCodeGenerator.Enums;
-using System;
 using System.Collections.Generic;
 
 namespace CsCodeGenerator
@@ -28,7 +27,7 @@ namespace CsCodeGenerator
             result += Util.NewLine + Indent + "{";
 
             result += EnumValues.Count > 0 ? Util.NewLine : "";
-            result += String.Join("," + Util.NewLine, EnumValues);
+            result += string.Join("," + Util.NewLine, EnumValues);
             result += Util.NewLine + Indent + "}";
             return result;
         }
@@ -43,7 +42,7 @@ namespace CsCodeGenerator
         }
 
         public virtual int IndentSize { get; set; } = (int)IndentType.Double * CsGenerator.DefaultTabSize;
-        public string Indent => new String(' ', IndentSize);
+        public string Indent => new string(' ', IndentSize);
 
         public string Name { get; set; }
 
