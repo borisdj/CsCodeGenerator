@@ -24,8 +24,7 @@ Also take a look into others packages:</br>
 | 6  | [CsCodeExample](https://github.com/borisdj/CsCodeExample) | Examples of C# code in form of a simple tutorial |
 
 ## How to use it
-1. Install [![NuGet](https://img.shields.io/nuget/v/CsCodeGenerator.svg)](https://www.nuget.org/packages/CsCodeGenerator/) package  
-  'Install-Package CsCodeGenerator'
+1. Install [![NuGet](https://img.shields.io/nuget/v/CsCodeGenerator.svg)](https://www.nuget.org/packages/CsCodeGenerator/) package: *'Install-Package CsCodeGenerator'*
 2. Following is first example of ComplexNumber class and then creating its ClassModel for writing to Complex.cs<br>
 
 Class we want to generate:
