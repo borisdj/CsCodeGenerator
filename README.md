@@ -80,7 +80,9 @@ namespace CsCodeGenerator.Tests
             return result;
         }
 
+        /// <summary>
         // example of 2 KeyWords(new and virtual), usually here would be just virtual
+        /// <summary>
         public new virtual string ToString()
         {
             return $"({Real:0.00}, {Imaginary:0.00})";
