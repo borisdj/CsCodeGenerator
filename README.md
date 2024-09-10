@@ -5,7 +5,7 @@ Can specify their Members (`Constructor`, `Field`, `Property`, `Method`) includi
 Defining `namespace` and `using` Directives is supported as well.  
 Library can also generate `Enums` and `Interfaces`, and create `NestedClasses` inside parent class.  
 
-**BaseElement** has Config for: `IndentSize, Comment, AccessModifier, BuiltInDataType, CustomDataType, Name`  
+**BaseElement** has Config for: `IndentSize, Comment, CommentHasSummaryTag(df:true), AccessModifier, BuiltInDataType, CustomDataType, Name`  
 **CsGenerator** Settings are: `DefaultTabSize`: *4* | `OutputDirectory`: "*Output*" |  
 -- List of components --  
 **AccessModifier**: `public, private, protected, pnternal, protected_internal`  
