@@ -4,6 +4,8 @@ It has ability to create `ClassModels` and write it to .cs files.
 Can specify their Members (`Constructor`, `Field`, `Property`, `Method`) including `Attributes` and `Parameters`.  
 Defining `namespace` and `using` Directives is supported as well.  
 Library can also generate `Enums` and `Interfaces`, and create `NestedClasses` inside parent class.  
+**BaseElement** has Config for: `IndentSize, Comment, AccessModifier, BuiltInDataType, CustomDataType, Name`  
+**CsGenerator** Settings are: *DefaultTabSize*: 4 | *OutputDirectory*: "Output" |
 -- List of components --  
 **AccessModifier**: `Public, Private, Protected, Internal, Protected_Internal`  
 **BuiltInDataType**: `void, bool, byte, int, long, decimal, float, double, char, string, object`  
@@ -11,8 +13,7 @@ Library can also generate `Enums` and `Interfaces`, and create `NestedClasses` i
 **KeyWord**: `this, abstract, partial, static, new, virtual, override, sealed, const, async, readOnly`  
 **IndentType**: `None, Single, Double, Triple, Quadruple`  
 
--- **CsGenerator Settings** --  
-*DefaultTabSize*: 4 | *OutputDirectory*: "Output"
+For more complex code with indented IF segments specific bigger Indent should be set (in a loop) for all internal elements.
 
 [![NuGet](https://img.shields.io/npm/l/express.svg)](https://github.com/borisdj/CsCodeGenerator/blob/master/LICENSE)
 
