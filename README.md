@@ -11,6 +11,10 @@ Library can also generate `Enums` and `Interfaces`, and create `NestedClasses` i
 **KeyWord**: `this, abstract, partial, static, new, virtual, override, sealed, const, async, readOnly`  
 **IndentType**: `None, Single, Double, Triple, Quadruple`  
 
+-- **CsGenerator Settings** --  
+DefaultTabSize: 4
+OutputDirectory: "Output"
+
 [![NuGet](https://img.shields.io/npm/l/express.svg)](https://github.com/borisdj/CsCodeGenerator/blob/master/LICENSE)
 
 Also take a look into others packages:</br>
