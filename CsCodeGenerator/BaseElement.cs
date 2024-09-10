@@ -26,6 +26,8 @@ namespace CsCodeGenerator
 
         public virtual string Comment { get; set; }
 
+        public virtual bool CommentHasSummaryTag { get; set; } = true;
+
         public virtual bool HasAttributes => true;
         public virtual List<AttributeModel> Attributes { get; set; } = new List<AttributeModel>();
 
@@ -48,7 +50,14 @@ namespace CsCodeGenerator
 
         public override string ToString()
         {
-            string result = Comment != null ? (Util.NewLine + Indent + "// " + Comment) : "";
+            string result = "";
+            if (Comment != null)
+            {
+                string commentSummary = CommentHasSummaryTag ? Util.NewLine + Indent + "/// <summary>" : "";
+                result += commentSummary;
+                result += Util.NewLine + Indent + "// " + Comment ;
+                result += commentSummary;
+            }
             result += HasAttributes ? Attributes.ToStringList(Indent) : "";
             result += Util.NewLine + Signature;
             return result;

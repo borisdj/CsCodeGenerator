@@ -30,13 +30,24 @@ namespace CsCodeGenerator
         {
             get
             {
-                if (IsAutoImplemented)
+                string result = "";
+                if (IsAutoImplemented && SetterBody == null)
                 {
-                    return IsGetOnly? " { get; }" : " { get; set; }";
+                    if (IsGetOnly)
+                    {
+                        if(GetterBody != null)
+                            result += " => " + GetterBody + ";";
+                        else
+                            result += " { get; }";
+                    }
+                    else
+                    {
+                        result += " { get; set; }";
+                    }
                 }
                 else
                 {
-                    string result = Util.NewLine + Indent + "{";
+                    result += Util.NewLine + Indent + "{";
                     string curentIndent = Util.NewLine + Indent + CsGenerator.IndentSingle;
 
                     result += curentIndent + "get { return " + GetterBody + "; }";
@@ -45,9 +56,8 @@ namespace CsCodeGenerator
                         result += curentIndent + "set { " + SetterBody + "; }";
                     }
                     result += Util.NewLine + Indent + "}";
-
-                    return result;
                 }
+                return result;
             } 
         }
     }
