@@ -17,7 +17,13 @@ IndentType: `None, Single, Double, Triple, Quadruple`
 
 For more complex code with indented IF segments specific Indent value should be set (in a loop) for all internal elements.  
 Package targets .NET Standard 2.0 so can be used both with .NetFramework and .NetCore / .Net (new unified)  
+
+## Contributing
+If you find this project useful you can mark it by leaving a Github **\*Star**.  
+
+Please read [CONTRIBUTING](CONTRIBUTING.md) for details on code of conduct, and the process for submitting pull requests.  
 [![NuGet](https://img.shields.io/npm/l/express.svg)](https://github.com/borisdj/CsCodeGenerator/blob/master/LICENSE)
+Want to **Contact** us for Hire (Development & Consulting): [www.codis.tech](http://www.codis.tech)
 
 Also take a look into others packages:</br>
 -Open source (MIT or cFOSS) authored [.Net libraries](https://infopedia.io/dot-net-libraries/) (@**Infopedia.io** personal blog post)
