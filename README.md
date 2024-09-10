@@ -3,7 +3,7 @@ This is a small .NET Core library that enables easy C# code generation based on 
 It has ability to create `ClassModels`, specify their Members (`Constructor`, `Field`, `Property`, `Method`) including `Attributes` and `Parameters` and write it to .cs files.<br>
 Defining `namespace` and `using` Directives is supported as well.<br>
 Library can also generate `Enums` and `Interfaces`, and create `NestedClasses` inside parent class.  
---List of components--  
+-- List of components --  
 **AccessModifier**: `Public, Private, Protected, Internal, Protected_Internal`  
 **BuiltInDataType**: `void, bool, byte, int, long, decimal, float, double, char, string, object`  
 **CommonDataType**: `DateTime, Guid`  
