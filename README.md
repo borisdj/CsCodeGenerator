@@ -12,7 +12,7 @@ Library can also generate `Enums` and `Interfaces`, and create `NestedClasses` i
 **BuiltInDataType**: `void, bool, byte, int, long, decimal, float, double, char, string, object`  
 **CommonDataType**: `DateTime, Guid`  
 **KeyWord**: `this, abstract, partial, static, new, virtual, override, sealed, const, async, readOnly`  
-**IndentType**: `None, Single, Double, Triple, Quadruple`  
+IndentType: `None, Single, Double, Triple, Quadruple`  
 
 For more complex code with indented IF segments specific bigger Indent should be set (in a loop) for all internal elements.
 
