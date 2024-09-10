@@ -1,15 +1,31 @@
 ## CodeGenerator
-This is a small .NET Core library that enables easy C# code generation based on Classes and its elements.<br>
-It has ability to create `ClassModels`, specify their Members (`Constructor`, `Field`, `Property`, `Method`) including `Attributes` and `Parameters` and write it to .cs files.<br>
-Defining `namespace` and `using` Directives is supported as well.<br>
-Library can also generate `Enums` and `Interfaces`, and create `NestedClasses` inside parent class.
+This is a small .NET Core library that enables easy C# code generation based on Classes and its elements.  
+It has ability to create `ClassModels` and write it to .cs files.  
+Can specify their Members (`Constructor`, `Field`, `Property`, `Method`) including `Attributes` and `Parameters`.  
+Defining `namespace` and `using` Directives is supported as well.  
+Library can also generate `Enums` and `Interfaces`, and create `NestedClasses` inside parent class.  
+-- List of components --  
+**AccessModifier**: `Public, Private, Protected, Internal, Protected_Internal`  
+**BuiltInDataType**: `void, bool, byte, int, long, decimal, float, double, char, string, object`  
+**CommonDataType**: `DateTime, Guid`  
+**KeyWord**: `this, abstract, partial, static, new, virtual, override, sealed, const, async, readOnly`  
 
 [![NuGet](https://img.shields.io/npm/l/express.svg)](https://github.com/borisdj/CsCodeGenerator/blob/master/LICENSE)
 
+Also take a look into others packages:</br>
+-Open source (MIT or cFOSS) authored [.Net libraries](https://infopedia.io/dot-net-libraries/) (@**Infopedia.io** personal blog post)
+| №  | .Net library             | Description                                              |
+| -  | ------------------------ | -------------------------------------------------------- |
+| 1  | [EFCore.BulkExtensions](https://github.com/borisdj/EFCore.BulkExtensions) | EF Core Bulk CRUD Ops (Flagship Lib) |
+| 2  | [EFCore.UtilExtensions](https://github.com/borisdj/EFCore.UtilExtensions) | EF Core Custom Annotations and AuditInfo |
+| 3  | [EFCore.FluentApiToAnnotation](https://github.com/borisdj/EFCore.FluentApiToAnnotation) | Converting FluentApi configuration to Annotations |
+| 4  | [FixedWidthParserWriter](https://github.com/borisdj/FixedWidthParserWriter) | Reading & Writing fixed-width/flat data files |
+| 5  | [CsCodeGenerator](https://github.com/borisdj/CsCodeGenerator) | C# code generation based on Classes and elements |
+| 6  | [CsCodeExample](https://github.com/borisdj/CsCodeExample) | Examples of C# code in form of a simple tutorial |
+
 ## How to use it
-1. Install [nuget](https://www.nuget.org/packages/CsCodeGenerator/) package (latest version 1.0.2)
-  'Install-Package CsCodeGenerator'
-2. Following is first example of ComplexNumber class and then creating its ClassModel for writing to Complex.cs<br>
+1 Install [![NuGet](https://img.shields.io/nuget/v/CsCodeGenerator.svg)](https://www.nuget.org/packages/CsCodeGenerator/) package: *'Install-Package CsCodeGenerator'*  
+2 Following is first example of ComplexNumber class and then creating its ClassModel for writing to Complex.cs<br>
 
 Class we want to generate:
 ````csharp
