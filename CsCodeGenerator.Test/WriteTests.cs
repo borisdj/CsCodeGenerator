@@ -1,11 +1,8 @@
 ﻿using CsCodeGenerator.Enums;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using Xunit;
 
-namespace CsCodeGenerator.Tests
+namespace CsCodeGenerator.Test
 {
     // CONSOLE: dotnet new -t xunittest  // create
     //          dotnet test              // run
@@ -164,7 +161,7 @@ namespace CsCodeGenerator.Tests
             string result = parentClass.ToString() + Util.NewLine;
 
             string text = GetNestedClassText();
-            
+
             Assert.Equal(result, text);
         }
 
@@ -173,7 +170,7 @@ namespace CsCodeGenerator.Tests
             var lines = new List<string>
             {
                 "",
-                "    public class ParentClass : BaseClass, ParentInterface", 
+                "    public class ParentClass : BaseClass, ParentInterface",
                 "    {",
                 "",
                 "        // Some Comment",
@@ -224,7 +221,7 @@ namespace CsCodeGenerator.Tests
             InterfaceModel myInterfaceModel = new InterfaceModel("MyInterfaceModel");
             myInterfaceModel.Properties.Add(new Property(BuiltInDataType.Int, "Prop1"));
             myInterfaceModel.Properties.Add(new Property(BuiltInDataType.String, "Prop2"));
-            
+
             myInterfaceModel.Methods.Add(new Method(BuiltInDataType.Void, "Method1"));
 
             string result = myInterfaceModel.ToString() + Util.NewLine;
@@ -278,7 +275,6 @@ namespace CsCodeGenerator.Tests
                 SingleParameter = new Parameter(@"""Some class info""")
             };
             complexNumberClass.AddAttribute(descriptionAttribute);
-
             complexNumberClass.DefaultConstructor.IsVisible = true;
 
             Constructor secondConstructor = new Constructor(complexNumberClass.Name);
@@ -435,7 +431,7 @@ namespace CsCodeGenerator.Tests
         {
             string fileNameSpace = "CsCodeGenerator.Tests";
             string userText = "User";
-            string textFirstName = "FirstName"; //nameof(User.FirstName);
+            //string textFirstName = "FirstName"; //nameof(User.FirstName);
 
             // Properties
             var userProperties = new List<Property>
@@ -447,7 +443,7 @@ namespace CsCodeGenerator.Tests
                 new Property(CommonDataType.DateTime.ToString(), "DateOfBirth"),
                 new Property(BuiltInDataType.String, "FullName") { IsGetOnly = true, IsAutoImplemented = false, GetterBody = "FirstName + FamilyName" }
             };
-            
+
             var lastNameColumAttributeParams = new List<Parameter>
             {
                 new Parameter(@"""LastName"""),
@@ -544,7 +540,7 @@ namespace CsCodeGenerator.Tests
 
         // VS has Bug that lockes files on writing
         // : Severity Code Description Project File Line Cannot open '.pdb' because it is being used by another process...
-        
+
         /*[Theory]
         [InlineData(null)]
         [InlineData("Generated")]*/
@@ -560,7 +556,7 @@ namespace CsCodeGenerator.Tests
             List<string> fileLines = ReadFileFromDisk(csGenerator.Path);
 
             string result = userFile.ToString();
-            
+
             string text = GetText(fileLines);
 
             Assert.Equal(result, text);
