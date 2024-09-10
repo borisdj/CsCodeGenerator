@@ -9,6 +9,7 @@ Library can also generate `Enums` and `Interfaces`, and create `NestedClasses` i
 **BuiltInDataType**: `void, bool, byte, int, long, decimal, float, double, char, string, object`  
 **CommonDataType**: `DateTime, Guid`  
 **KeyWord**: `this, abstract, partial, static, new, virtual, override, sealed, const, async, readOnly`  
+**IndentType**: `None, Single, Double, Triple, Quadruple`  
 
 [![NuGet](https://img.shields.io/npm/l/express.svg)](https://github.com/borisdj/CsCodeGenerator/blob/master/LICENSE)
 
