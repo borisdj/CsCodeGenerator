@@ -15,7 +15,7 @@ Library can also generate `Enums` and `Interfaces`, and create `NestedClasses` i
 **KeyWord**: `this, abstract, partial, static, new, virtual, override, sealed, const, async, readOnly`  
 IndentType: `None, Single, Double, Triple, Quadruple`  
 
-For more complex code with indented IF segments specific bigger Indent should be set (in a loop) for all internal elements.
+For more complex code with indented IF segments specific Indent value should be set (in a loop) for all internal elements.
 
 [![NuGet](https://img.shields.io/npm/l/express.svg)](https://github.com/borisdj/CsCodeGenerator/blob/master/LICENSE)
 
