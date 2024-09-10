@@ -25,6 +25,7 @@
     <PackageTags>C# Cs code generation class methods</PackageTags>
     <FileVersion>$(Version).0</FileVersion>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
