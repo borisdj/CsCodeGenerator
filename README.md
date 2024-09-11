@@ -36,6 +36,9 @@ Also take a look into others packages:</br>
 | 5  | [CsCodeGenerator](https://github.com/borisdj/CsCodeGenerator) | C# code generation based on Classes and elements |
 | 6  | [CsCodeExample](https://github.com/borisdj/CsCodeExample) | Examples of C# code in form of a simple tutorial |
 
+
+## GeneratorModel Structure:
+
 **Class Inheritance Hierarchy**
 ````csharp
                                 |-* BaseElement
@@ -45,8 +48,7 @@ Constructor : Method : ---------|
               EnumModel : ------|
               InterfaceModel : -|
 ````
-
-## GeneratorModel Composition Structure:
+**Component Composition**
 ````csharp
 CsGenerator
 |
@@ -87,7 +89,7 @@ CsGenerator
 Class we want to generate:
 ````csharp
 using System;
-using System.ComponentModel;
+using System.Model;
 
 namespace CsCodeGenerator.Tests
 {
