@@ -36,6 +36,50 @@ Also take a look into others packages:</br>
 | 5  | [CsCodeGenerator](https://github.com/borisdj/CsCodeGenerator) | C# code generation based on Classes and elements |
 | 6  | [CsCodeExample](https://github.com/borisdj/CsCodeExample) | Examples of C# code in form of a simple tutorial |
 
+**Class Inheritance Hierarchy**
+````csharp
+                                |-* BaseElement
+              ClassModel : -----|
+Property : -- Field : ----------|
+Constructor : Method : ---------|
+              EnumModel : ------|
+              InterfaceModel : -|
+````
+
+## GeneratorModel Composition Structure:
+````csharp
+CsGenerator
+|
+|---Files
+	|
+	|---Enums
+	|
+	|---Classes
+		|
+		|---Fields
+		|
+		|---Constructors (DefaultConstructor first)
+		|	|---Attributes
+		|	|	|--- Parameters
+		|	|
+		|	|---Parameters
+		|
+		|---Properties
+		|	|---Attributes
+		|	|	|--- Parameters
+		|	|
+		|	|---Parameters
+		|
+		|---Methods
+		|	|---Attributes
+		|	|	|--- Parameters
+		|	|
+		|	|---Parameters
+		|
+		|---NestedClasses (recursively)
+			|--- ...
+````
+
 ## How to use it
 1 Install [![NuGet](https://img.shields.io/nuget/v/CsCodeGenerator.svg)](https://www.nuget.org/packages/CsCodeGenerator/) package: *'Install-Package CsCodeGenerator'*  
 2 Following is first example of ComplexNumber class and then creating its ClassModel for writing to Complex.cs<br>
@@ -190,48 +234,4 @@ complexNumberFile.Classes.Add(complexNumberClass.Name, complexNumberClass);
 CsGenerator csGenerator = new CsGenerator();
 csGenerator.Files.Add(complexNumberFile.Name, complexNumberFile);
 csGenerator.CreateFiles(); //Console.Write(complexNumberFile); 
-````
-
-## GeneratorModel Structure:
-````csharp
-CsGenerator
-|
-|---Files
-	|
-	|---Enums
-	|
-	|---Classes
-		|
-		|---Fields
-		|
-		|---Constructors (DefaultConstructor first)
-		|	|---Attributes
-		|	|	|--- Parameters
-		|	|
-		|	|---Parameters
-		|
-		|---Properties
-		|	|---Attributes
-		|	|	|--- Parameters
-		|	|
-		|	|---Parameters
-		|
-		|---Methods
-		|	|---Attributes
-		|	|	|--- Parameters
-		|	|
-		|	|---Parameters
-		|
-		|---NestedClasses (recursively)
-			|--- ...
-````
-**Class Inheritance Composision**
-````csharp
-BaseElement -- | *> ClassModel
-               | *> Field
-	       |       | *> Property
-	       | *> Method
-	       |       | *> Constructor
-               | *> EnumModel
-       	       | *> InterfaceModel
 ````
