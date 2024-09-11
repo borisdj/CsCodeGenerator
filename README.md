@@ -13,7 +13,7 @@ Library can also generate `Enums` and `Interfaces`, and create `NestedClasses` i
 **BuiltInDataType**: `void, bool, byte, int, long, decimal, float, double, char, string, object`  
 **CommonDataType**: `DateTime, Guid`  
 **KeyWord**: `this, abstract, partial, static, new, virtual, override, sealed, const, async, readOnly`  
-IndentType: `None, Single, Double, Triple, Quadruple`  
+***IndentType***: `None, Single, Double, Triple, Quadruple`  
 
 For more complex code with indented IF segments specific Indent value should be set (in a loop) for all internal elements.  
 Package targets .NET Standard 2.0 so can be used both with .NetFramework and .NetCore / .Net (new unified)  
@@ -192,7 +192,7 @@ csGenerator.Files.Add(complexNumberFile.Name, complexNumberFile);
 csGenerator.CreateFiles(); //Console.Write(complexNumberFile); 
 ````
 
-## GeneratorModel Composition Structure:
+## GeneratorModel Structure:
 ````csharp
 CsGenerator
 |
@@ -224,4 +224,14 @@ CsGenerator
 		|
 		|---NestedClasses (recursively)
 			|--- ...
+````
+**Class Inheritance Composision**
+````csharp
+BaseElement -- | *> ClassModel
+               | *> Field
+	       |       | *> Property
+	       | *> Method
+	       |       | *> Constructor
+               | *> EnumModel
+       	       | *> InterfaceModel
 ````
