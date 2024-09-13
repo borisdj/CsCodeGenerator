@@ -18,6 +18,8 @@ Library can also generate `Enums` and `Interfaces`, and create `NestedClasses` i
 For more complex code with indented IF segments specific Indent value should be set (in a loop) for all internal elements.  
 Package targets .NET Standard 2.0 so can be used both with .NetFramework and .NetCore / .Net (new unified)  
 
+**Installation** [![NuGet](https://img.shields.io/nuget/v/CsCodeGenerator.svg)](https://www.nuget.org/packages/CsCodeGenerator/) package: *'Install-Package CsCodeGenerator'* 
+
 ## Contributing
 If you find this project useful you can mark it by leaving a Github **\*Star**.  
 
@@ -82,9 +84,8 @@ CsGenerator
 			|--- ...
 ````
 
-## How to use it
-1 Install [![NuGet](https://img.shields.io/nuget/v/CsCodeGenerator.svg)](https://www.nuget.org/packages/CsCodeGenerator/) package: *'Install-Package CsCodeGenerator'*  
-2 Following is first example of ComplexNumber class and then creating its ClassModel for writing to Complex.cs<br>
+## How to use it 
+Following is first example of ComplexNumber class and then creating its ClassModel for writing to Complex.cs<br>
 
 Class we want to generate:
 ````csharp
