@@ -156,7 +156,8 @@ string fileNameSpace = $"{Util.Namespace} CsCodeGenerator.Tests";
 string complexNumberText = "ComplexNumber";
 
 ClassModel complexNumberClass = new ClassModel(complexNumberText);
-complexNumberClass.SingleKeyWord = KeyWord.Partial; //or: complexNumberClass.KeyWords.Add(KeyWord.Partial);
+complexNumberClass.SingleKeyWord = KeyWord.Partial; // one way to set single KeyWord
+//complexNumberClass.KeyWords.Add(KeyWord.Partial); // or alternative way
 complexNumberClass.BaseClass =  "SomeBaseClass";
 complexNumberClass.Interfaces.Add("NumbericInterface)";
 
