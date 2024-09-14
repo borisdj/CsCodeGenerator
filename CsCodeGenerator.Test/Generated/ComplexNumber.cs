@@ -39,7 +39,7 @@ namespace CsCodeGenerator.Test
             ComplexNumber result = new ComplexNumber
             {
                 Real = Real + input.Real,
-                Imaginary = Imaginary + input.Imaginary
+                Imaginary = Imaginary + input.Imaginary,
             };
             return result;
         }

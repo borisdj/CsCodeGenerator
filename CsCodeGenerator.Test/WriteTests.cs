@@ -293,6 +293,8 @@ namespace CsCodeGenerator.Test
             secondConstructor.BodyLines.Add("Imaginary = imaginary;");
             complexNumberClass.Constructors.Add(secondConstructor);
 
+            var indent = complexNumberClass.Indent;
+
             var fields = new List<Field>
             {
                 new (BuiltInDataType.Double, "PI") { SingleKeyWord = KeyWord.Const, DefaultValue = "3.14" },
@@ -330,9 +332,11 @@ namespace CsCodeGenerator.Test
                     Parameters = new List<Parameter> { new Parameter("ComplexNumber", "input") },
                     BodyLines = new List<string>
                     {
-                        "ComplexNumber result = new ComplexNumber();",
-                        "result.Real = Real + input.Real;",
-                        "result.Imaginary = Imaginary + input.Imaginary;",
+                        "ComplexNumber result = new ComplexNumber",
+                        "{",
+                        $"{indent}Real = Real + input.Real,",
+                        $"{indent}Imaginary = Imaginary + input.Imaginary,",
+                        "};",
                         "return result;"
                     }
                 },
@@ -407,9 +411,11 @@ namespace CsCodeGenerator.Test
                 "",
                 "        public ComplexNumber Add(ComplexNumber input)",
                 "        {",
-                "            ComplexNumber result = new ComplexNumber();",
-                "            result.Real = Real + input.Real;",
-                "            result.Imaginary = Imaginary + input.Imaginary;",
+                "            ComplexNumber result = new ComplexNumber",
+                "            {",
+                "                Real = Real + input.Real,",
+                "                Imaginary = Imaginary + input.Imaginary,",
+                "            };",
                 "            return result;",
                 "        }",
                 "",
