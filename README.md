@@ -9,7 +9,7 @@ Library can also generate `Enums` and `Interfaces`, and create `NestedClasses` i
 **Property** more Config: `IsGetOnly, IsAutoImplemented, GetterBody, SetterBody`  
 **CsGenerator** Settings are: `DefaultTabSize`: *4* | `OutputDirectory`: "*Output*" |  
 -- List of components --  
-**AccessModifier**: `public, private, protected, pnternal, protected_internal`  
+**AccessModifier**: `public, private, protected, internal, protected_internal`  
 **BuiltInDataType**: `void, bool, byte, int, long, decimal, float, double, char, string, object`  
 **CommonDataType**: `DateTime, Guid`  
 **KeyWord**: `this, abstract, partial, static, new, virtual, override, sealed, const, async, readOnly`  
