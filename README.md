@@ -15,7 +15,7 @@ Library can also generate `Enums` and `Interfaces`, and create `NestedClasses` i
 **KeyWord**: `this, abstract, partial, static, new, virtual, override, sealed, const, async, readOnly`  
 ***IndentType***: `None, Single, Double, Triple, Quadruple`  
 
-For more complex code with indented IF segments specific Indent value should be set (in a loop) for all internal elements.  
+For more complex code with indented segments specific Indent value should be set (prepend in a loop) for all internal lines/elements.  
 Package targets .NET Standard 2.0 so can be used both with .NetFramework and .NetCore / .Net (new unified)  
 
 **Installation** [![NuGet](https://img.shields.io/nuget/v/CsCodeGenerator.svg)](https://www.nuget.org/packages/CsCodeGenerator/) package: *'Install-Package CsCodeGenerator'* 
