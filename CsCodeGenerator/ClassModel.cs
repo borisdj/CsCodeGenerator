@@ -51,12 +51,12 @@ namespace CsCodeGenerator
         {
             string result = base.ToString();
             result += (BaseClass != null || Interfaces?.Count > 0) ? $" : " : "";
-            result += BaseClass != null ? BaseClass : "";
+            result += BaseClass ?? "";
             result += (BaseClass != null && Interfaces?.Count > 0) ? $", " : "";
             result += Interfaces?.Count > 0 ? string.Join(", ", Interfaces) : "";
             result += Util.NewLine + Indent + "{";
 
-            result += String.Join("", Fields);
+            result += string.Join("", Fields);
 
             var visibleConstructors = Constructors.Where(a => a.IsVisible);
             bool hasFieldsBeforeConstructor = visibleConstructors.Any() && Fields.Any();

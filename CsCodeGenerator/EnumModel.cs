@@ -37,8 +37,8 @@ namespace CsCodeGenerator
     {
         public EnumValue(string name = null, int? value = null)
         {
-            this.Name = name;
-            this.Value = value;
+            Name = name;
+            Value = value;
         }
 
         public virtual int IndentSize { get; set; } = (int)IndentType.Double * CsGenerator.DefaultTabSize;

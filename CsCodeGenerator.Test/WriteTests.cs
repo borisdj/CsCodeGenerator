@@ -1,5 +1,4 @@
 ﻿using CsCodeGenerator.Enums;
-using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 using System.Diagnostics;
 using Xunit;
 
@@ -10,7 +9,7 @@ namespace CsCodeGenerator.Test
     // VS: Test -> Windows -> Test Explorer
     public class WriteTests
     {
-        private string GetText(List<string> lines)
+        protected static string GetText(List<string> lines)
         {
             string text = "";
             foreach (var line in lines)
@@ -37,7 +36,7 @@ namespace CsCodeGenerator.Test
             Assert.Equal(text, result);
         }
 
-        private string GetFieldsText()
+        protected string GetFieldsText()
         {
             var lines = new List<string>
             {
@@ -81,7 +80,7 @@ namespace CsCodeGenerator.Test
             Assert.Equal(text, result);
         }
 
-        private string GetPropertiesText()
+        protected static string GetPropertiesText()
         {
             var lines = new List<string>
             {
@@ -131,7 +130,7 @@ namespace CsCodeGenerator.Test
             Assert.Equal(text, result);
         }
 
-        private string GetMethodsText()
+        protected static string GetMethodsText()
         {
             var lines = new List<string>
             {
@@ -172,7 +171,7 @@ namespace CsCodeGenerator.Test
             Assert.Equal(text, result);
         }
 
-        private string GetNestedClassText()
+        protected static string GetNestedClassText()
         {
             var lines = new List<string>
             {
@@ -208,7 +207,7 @@ namespace CsCodeGenerator.Test
             Assert.Equal(text, result);
         }
 
-        private string GetEnumText()
+        protected static string GetEnumText()
         {
             var lines = new List<string>
             {
@@ -248,7 +247,7 @@ namespace CsCodeGenerator.Test
             void Order();
         }
 
-        private string GetInterfaceText()
+        protected static string GetInterfaceText()
         {
             var lines = new List<string>
             {
@@ -325,20 +324,20 @@ namespace CsCodeGenerator.Test
             {
                 new (BuiltInDataType.Double, "Modul")
                 {
-                    BodyLines = new List<string> { "return Math.Sqrt(Real * Real + Imaginary * Imaginary);" }
+                    BodyLines = ["return Math.Sqrt(Real * Real + Imaginary * Imaginary);"]
                 },
                 new (complexNumberText, "Add")
                 {
-                    Parameters = new List<Parameter> { new Parameter("ComplexNumber", "input") },
-                    BodyLines = new List<string>
-                    {
+                    Parameters = [ new Parameter("ComplexNumber", "input") ],
+                    BodyLines = 
+                    [
                         "ComplexNumber result = new ComplexNumber",
                         "{",
                         $"{indent}Real = Real + input.Real,",
                         $"{indent}Imaginary = Imaginary + input.Imaginary,",
                         "};",
                         "return result;"
-                    }
+                    ]
                 },
                 new (BuiltInDataType.String, "ToString")
                 {
@@ -369,7 +368,7 @@ namespace CsCodeGenerator.Test
             Assert.Equal(text, result);
         }
 
-        private string GetComplexNumberFileText()
+        protected static string GetComplexNumberFileText()
         {
             var lines = new List<string>
             {
@@ -444,7 +443,7 @@ namespace CsCodeGenerator.Test
             Assert.Equal(text, result);
         }
 
-        private static FileModel GetEntityUserFile()
+        protected static FileModel GetEntityUserFile()
         {
             string fileNameSpace = "CsCodeGenerator.Tests";
             string userText = "User";
@@ -453,18 +452,18 @@ namespace CsCodeGenerator.Test
             // Properties
             var userProperties = new List<Property>
             {
-                new Property(BuiltInDataType.Int, "UserId"),
-                new Property(BuiltInDataType.String, "FirstName"),
-                new Property(BuiltInDataType.String, "FamilyName"),
-                new Property(BuiltInDataType.String, "Address"),
-                new Property(CommonDataType.DateTime.ToString(), "DateOfBirth"),
-                new Property(BuiltInDataType.String, "FullName") { IsGetOnly = true, IsAutoImplemented = false, GetterBody = "FirstName + FamilyName" }
+                new(BuiltInDataType.Int, "UserId"),
+                new(BuiltInDataType.String, "FirstName"),
+                new(BuiltInDataType.String, "FamilyName"),
+                new(BuiltInDataType.String, "Address"),
+                new(CommonDataType.DateTime.ToString(), "DateOfBirth"),
+                new(BuiltInDataType.String, "FullName") { IsGetOnly = true, IsAutoImplemented = false, GetterBody = "FirstName + FamilyName" }
             };
 
             var lastNameColumAttributeParams = new List<Parameter>
             {
-                new Parameter(@"""LastName"""),
-                new Parameter() { Name = "Order", Value = "2" }
+                new(@"""LastName"""),
+                new() { Name = "Order", Value = "2" }
             };
 
             userProperties.Single(a => a.Name == "UserId").AddAttribute(new AttributeModel("Key"));
@@ -474,8 +473,8 @@ namespace CsCodeGenerator.Test
 
             var userTableAttributeParams = new List<Parameter>
             {
-                new Parameter(@"""User"""),
-                new Parameter() { Name = "Schema", Value = @"""tmp""" }
+                new(@"""User"""),
+                new() { Name = "Schema", Value = @"""tmp""" }
             };
 
             /*var methods = new List<Method>
