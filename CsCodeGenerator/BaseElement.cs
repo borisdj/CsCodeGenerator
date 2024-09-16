@@ -22,6 +22,8 @@ namespace CsCodeGenerator
         }
 
         public virtual int IndentSize { get; set; } = (int)IndentType.Double * CsGenerator.DefaultTabSize;
+
+        public virtual int FluentIndentSize { get; set; } = (int)IndentType.Double * CsGenerator.DefaultTabSize;
         public string Indent => new string(' ', IndentSize);
 
         public virtual string Comment { get; set; }

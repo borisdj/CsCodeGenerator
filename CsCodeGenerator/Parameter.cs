@@ -12,17 +12,26 @@ namespace CsCodeGenerator
             Value = value;
         }
 
-        public Parameter(BuiltInDataType builtInDataType, string name)
+        public Parameter(string name, string value)
+        {
+            Name = name;
+            Value = value;
+        }
+
+        public Parameter(BuiltInDataType builtInDataType, string name, string value)
         {
             BuiltInDataType = builtInDataType;
             Name = name;
+            Value = value;
         }
 
-        public Parameter(string customDataType, string name)
+        public Parameter(string customDataType, string name, string value)
         {
             CustomDataType = customDataType;
             Name = name;
+            Value = value;
         }
+
         public KeyWord? KeyWord { get; set; }
 
         public BuiltInDataType? BuiltInDataType { get; set; }

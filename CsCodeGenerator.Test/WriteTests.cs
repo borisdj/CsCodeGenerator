@@ -120,7 +120,7 @@ namespace CsCodeGenerator.Test
                 }
             };
 
-            methods.Single(a => a.Name == "IsOdd").Parameters.Add(new Parameter(BuiltInDataType.Int, "value"));
+            methods.Single(a => a.Name == "IsOdd").Parameters.Add(new Parameter(BuiltInDataType.Int, "value", null));
             methods.Single(a => a.Name == "IsOdd").AddAttribute(new AttributeModel("Authorize"));
 
             string result = string.Join(Util.NewLine, methods) + Util.NewLine;
@@ -286,8 +286,8 @@ namespace CsCodeGenerator.Test
             complexNumberClass.DefaultConstructor.IsVisible = true;
 
             var secondConstructor = new Constructor(complexNumberClass.Name);
-            secondConstructor.Parameters.Add(new Parameter(BuiltInDataType.Double, "real"));
-            secondConstructor.Parameters.Add(new Parameter(BuiltInDataType.Double, "imaginary") { Value = "0" });
+            secondConstructor.Parameters.Add(new Parameter(BuiltInDataType.Double, "real", null));
+            secondConstructor.Parameters.Add(new Parameter(BuiltInDataType.Double, "imaginary", null) { Value = "0" });
             secondConstructor.BodyLines.Add("Real = real;");
             secondConstructor.BodyLines.Add("Imaginary = imaginary;");
             complexNumberClass.Constructors.Add(secondConstructor);
@@ -435,7 +435,7 @@ namespace CsCodeGenerator.Test
         [Fact]
         public void ShouldWriteEntityUserFile()
         {
-            FileModel userFile = GetEntityUserFile();
+            FileModel userFile = GetEntityUserFileWithFluent(); //GetEntityUserFile
             string result = userFile.ToString();
 
             string text = GetUserFileText();
@@ -509,6 +509,52 @@ namespace CsCodeGenerator.Test
 
             // File
             FileModel userFile = new FileModel(userText);
+            userFile.LoadUsingDirectives(usingDirectives);
+            userFile.Namespace = fileNameSpace;
+            userFile.Classes.Add(userClass);
+
+            return userFile;
+        }
+
+        protected static FileModel GetEntityUserFileWithFluent()
+        {
+            string fileNameSpace = "CsCodeGenerator.Tests";
+            string userText = "User";
+
+            // Class
+            var userClass = (ClassModel)new ClassModel()
+                .WithAttribute(new AttributeModel("Table")
+                    .WithParameter(@"""User""")
+                    .WithParameter("Schema", @"""tmp"""))
+                .WithKeyWord(KeyWord.Partial)
+                .WithName(userText)
+                    .WithProperty(new Property(BuiltInDataType.Int, "UserId") // needs 'new Property' when having deeper element such as Att.
+                        .WithAttribute("Key"))
+                    .WithProperty(new Property(BuiltInDataType.String, "FirstName")
+                        .WithAttribute(new AttributeModel("Column") 
+                            .WithParameter("Order", "1")))
+                    .WithProperty(new Property(BuiltInDataType.String, "FamilyName")
+                        .WithAttribute(new AttributeModel("Column")
+                            .WithParameter(@"""LastName""")
+                            .WithParameter("Order", "2")))
+                    .WithProperty(BuiltInDataType.String, "Address") // no need for 'new Property', can be set with args directly, no deeper element
+                    .WithProperty(CommonDataType.DateTime.ToString(), "DateOfBirth")
+                    .WithProperty(new Property(BuiltInDataType.String, "FullName") { IsGetOnly = true, IsAutoImplemented = false, GetterBody = "FirstName + FamilyName" }
+                        .WithAttribute("NotMapped"));
+
+            var textSystem = "System";
+            var textSystem_ComponentModel = $"{textSystem}.ComponentModel";
+            var textSystem_ComponentModel_DataAnnotations = $"{textSystem_ComponentModel}.DataAnnotations";
+            var textSystem_ComponentModel_DataAnnotations_Schema = $"{textSystem_ComponentModel_DataAnnotations}.Schema";
+            var usingDirectives = new List<string>
+            {
+                textSystem + ";",
+                textSystem_ComponentModel_DataAnnotations + ";",
+                textSystem_ComponentModel_DataAnnotations_Schema + ";",
+            };
+
+            // File
+            var userFile = new FileModel(userText);
             userFile.LoadUsingDirectives(usingDirectives);
             userFile.Namespace = fileNameSpace;
             userFile.Classes.Add(userClass);
