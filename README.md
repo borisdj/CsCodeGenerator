@@ -87,9 +87,9 @@ CsGenerator
 
 ## How to use it 
 Following is first example of ComplexNumber class and then creating its ClassModel for writing to Complex.cs  
-There are 2 option to configure it:
--one is using Fluent methods (A) 
--and other with pure classes and properties (B).
+There are 2 option to configure it:  
+-one is using Fluent methods (A)
+-and other with pure classes and properties (B)
 
 Class we want to generate:
 ````csharp
@@ -149,6 +149,8 @@ namespace CsCodeGenerator.Tests
 ````
 
 A) Code to do it with Fluent methods:
+(Fluent calls are composed with BaseElement, when configuring deeper level we need to instanciate with New and call in the scope;  
+To be able to get subElements returned to main scope then more extension methods would be needed - one is commented in code: `WithPropertyReturn`)
 ````csharp
 var usingDirectives = new List<string>
 {
