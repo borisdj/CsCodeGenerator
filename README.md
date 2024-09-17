@@ -86,7 +86,8 @@ CsGenerator
 ````
 
 ## How to use it 
-Following is first example of ComplexNumber class and then creating its ClassModel for writing to Complex.cs<br>
+Following is first example of ComplexNumber class and then creating its ClassModel for writing to Complex.cs  
+There are 2 option to configure it, one is using Fluent methods (A) and other with pure classes and properties (B).
 
 Class we want to generate:
 ````csharp
@@ -145,7 +146,67 @@ namespace CsCodeGenerator.Tests
 }
 ````
 
-Code to do it:
+A) Code to do it:
+````csharp
+var usingDirectives = new List<string>
+{
+    "System;",
+    "System.ComponentModel;"
+};
+string fileNameSpace = "CsCodeGenerator.Tests";
+string complexNumberText = "ComplexNumber";
+
+// Class
+var classModel = new ClassModel();
+var indent = classModel.Indent;
+
+var complexNumberClass = (ClassModel)classModel
+    .WithAttribute(new AttributeModel("Description")
+        .WithParameter(@"""Some class info"""))
+    .WithKeyWord(KeyWord.Partial)
+    .WithName(complexNumberText)
+    .WithConstructor(new Constructor(complexNumberText) { BracesInNewLine = false })
+    .WithConstructor(new Constructor(complexNumberText)
+        .WithParameter(BuiltInDataType.Double, "real", null)
+        .WithParameter(BuiltInDataType.Double, "imaginary", "0")
+        .WithBodyLine("Real = real;")
+        .WithBodyLine("Imaginary = imaginary;"))
+    .WithField(new Field(BuiltInDataType.Double, "PI") { SingleKeyWord = KeyWord.Const, DefaultValue = "3.14" })
+    .WithField(new Field(BuiltInDataType.String, "remark") { AccessModifier = AccessModifier.Private })
+    .WithProperty(new Property(BuiltInDataType.String, "DefaultFormat") { SingleKeyWord = KeyWord.Static, IsGetOnly = true, DefaultValue = @"""a + b * i""" })
+    .WithProperty(BuiltInDataType.Double, "Real")
+    .WithProperty(BuiltInDataType.Double, "Imaginary")
+    .WithProperty(new Property(BuiltInDataType.String, "Remark") { SingleKeyWord = KeyWord.Virtual, IsAutoImplemented = false }
+        .WithGetter("remark")
+        .WithSetter("remark = value"))
+    .WithMethod(new Method(BuiltInDataType.Double, "Modul")
+        .WithBodyLine("return Math.Sqrt(Real * Real + Imaginary * Imaginary);"))
+    .WithMethod(new Method(complexNumberText, "Add")
+        .WithParameter(complexNumberText, "input", null)
+        .WithBodyLine("ComplexNumber result = new ComplexNumber") // WAY 2
+        .WithBodyLine("{")
+        .AddIndent()
+            .WithBodyLine("Real = Real + input.Real,")
+            .WithBodyLine("Imaginary = Imaginary + input.Imaginary,")
+        .RemoveIndent()
+        .WithBodyLine("};")
+        .WithBodyLine("return result;"))
+    .WithMethod(new Method(BuiltInDataType.String, "ToString") { 
+                    KeyWords = [KeyWord.New, KeyWord.Virtual],
+                    Comment = "example of 2 KeyWords(new and virtual), usually here would be just virtual" }
+        .WithBodyLine("return $\"({Real:0.00}, {Imaginary:0.00})\";"));
+
+var complexNumberFile = new FileModel(complexNumberText);
+complexNumberFile.LoadUsingDirectives(usingDirectives);
+complexNumberFile.Namespace = fileNameSpace;
+complexNumberFile.Classes.Add(complexNumberClass);
+
+var csGenerator = new CsGenerator();
+csGenerator.Files.Add(complexNumberFile);
+csGenerator.CreateFiles();
+````
+
+B) Code to do it the alternative way:
 ````csharp
 var usingDirectives = new List<string>
 {
@@ -210,7 +271,7 @@ var methods = new Method[]
     },
     new Method(complexNumberText, "Add")
     {
-        Parameters = new List<Parameter> { new Parameter("ComplexNumber", "input") },
+        Parameters = new List<Parameter> { new Parameter("ComplexNumber", "input", null) },
         BodyLines = new List<string>
         {
             "ComplexNumber result = new ComplexNumber();",
