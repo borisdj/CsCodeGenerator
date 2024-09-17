@@ -210,7 +210,7 @@ csGenerator.Files.Add(complexNumberFile);
 csGenerator.CreateFiles();
 ````
 
-B) Code to do it the alternative way:
+B) Alternative way without Fluent:
 ````csharp
 var usingDirectives = new List<string>
 {
