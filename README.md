@@ -189,7 +189,7 @@ var complexNumberClass = (ClassModel)classModel
         .WithBodyLine("return Math.Sqrt(Real * Real + Imaginary * Imaginary);"))
     .WithMethod(new Method(complexNumberText, "Add")
         .WithParameter(complexNumberText, "input", null)
-        .WithBodyLine("ComplexNumber result = new ComplexNumber") // WAY 2
+        .WithBodyLine("ComplexNumber result = new ComplexNumber")
         .WithBodyLine("{")
         .AddIndent()
             .WithBodyLine("Real = Real + input.Real,")
