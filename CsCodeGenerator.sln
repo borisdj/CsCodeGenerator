@@ -5,7 +5,7 @@ VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CsCodeGenerator", "CsCodeGenerator\CsCodeGenerator.csproj", "{7F76F9F5-DA11-49B1-85F3-1BBE57C16AB1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CsCodeGenerator.Test", "CsCodeGenerator.Test\CsCodeGenerator.Test.csproj", "{EAA969B9-54D5-4E46-B0E1-8B9BB72A196E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CsCodeGenerator.Tests", "CsCodeGenerator.Tests\CsCodeGenerator.Tests.csproj", "{EAA969B9-54D5-4E46-B0E1-8B9BB72A196E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

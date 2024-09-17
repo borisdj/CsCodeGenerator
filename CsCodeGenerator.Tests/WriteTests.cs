@@ -1,9 +1,8 @@
 ﻿using CsCodeGenerator.Enums;
-using System;
 using System.Diagnostics;
 using Xunit;
 
-namespace CsCodeGenerator.Test
+namespace CsCodeGenerator.Tests
 {
     // CONSOLE: dotnet new -t xunittest  // create
     //          dotnet test              // run
@@ -397,7 +396,8 @@ namespace CsCodeGenerator.Test
                     .WithBodyLine("Imaginary = imaginary;"))
                 .WithField(new Field(BuiltInDataType.Double, "PI") { SingleKeyWord = KeyWord.Const, DefaultValue = "3.14" })
                 .WithField(new Field(BuiltInDataType.String, "remark") { AccessModifier = AccessModifier.Private })
-                .WithProperty(new Property(BuiltInDataType.String, "DefaultFormat") { SingleKeyWord = KeyWord.Static, IsGetOnly = true, DefaultValue = @"""a + b * i""" })
+                .WithProperty(new Property(BuiltInDataType.String, "DefaultFormat") 
+                    { SingleKeyWord = KeyWord.Static, IsGetOnly = true, DefaultValue = @"""a + b * i""" })
                 .WithProperty(BuiltInDataType.Double, "Real")
                 .WithProperty(BuiltInDataType.Double, "Imaginary")
                 .WithProperty(new Property(BuiltInDataType.String, "Remark") { SingleKeyWord = KeyWord.Virtual, IsAutoImplemented = false }

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CsCodeGenerator.Test
+namespace CsCodeGenerator.Tests
 {
     [Table("User", Schema = "tmp")]
     public partial class User

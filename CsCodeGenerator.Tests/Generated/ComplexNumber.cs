@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace CsCodeGenerator.Test
+namespace CsCodeGenerator.Tests
 {
     [Description("Some class info")]
     public partial class ComplexNumber
