@@ -9,14 +9,6 @@ namespace CsCodeGenerator.Tests
     // VS: Test -> Windows -> Test Explorer
     public class WriteTests
     {
-        protected static string GetText(List<string> lines)
-        {
-            string text = "";
-            foreach (var line in lines)
-                text += line + Util.NewLine;
-            return text;
-        }
-
         [Fact]
         public void ShouldWriteFields()
         {
@@ -642,7 +634,7 @@ namespace CsCodeGenerator.Tests
             return userFile;
         }
 
-        private string GetUserFileText()
+        protected static string GetUserFileText()
         {
             var lines = new List<string>
             {
@@ -686,7 +678,7 @@ namespace CsCodeGenerator.Tests
         //[Theory]
         //[InlineData(null)]
         //[InlineData("Generated")]
-        public void ShouldWriteToDiskEntityUserFile(string directory) // TODO
+        public static void ShouldWriteToDiskEntityUserFile(string directory) // TODO
         {
             CsGenerator csGenerator = new CsGenerator();
             csGenerator.OutputDirectory = directory ?? csGenerator.OutputDirectory;
@@ -702,6 +694,16 @@ namespace CsCodeGenerator.Tests
             string text = GetText(fileLines);
 
             Assert.Equal(text, result);
+        }
+
+        protected static string GetText(List<string> lines)
+        {
+            string text = "";
+            foreach (var line in lines)
+            {
+                text += line + Util.NewLine;
+            }
+            return text;
         }
 
         private List<string> ReadFileFromDisk(string path)
