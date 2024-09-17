@@ -238,14 +238,14 @@ complexNumberClass.DefaultConstructor.IsVisible = true;
 
 Constructor secondConstructor = new Constructor(complexNumberClass.Name);
 secondConstructor.Parameters.Add(new Parameter(BuiltInDataType.Double, "real"));
-secondConstructor.Parameters.Add(new Parameter(BuiltInDataType.Double, "imaginary") { Value = "0" });
+secondConstructor.Parameters.Add(new Parameter(BuiltInDataType.Double, "imaginary") { Value ="0" });
 secondConstructor.BodyLines.Add("Real = real;");
 secondConstructor.BodyLines.Add("Imaginary = imaginary;");
 complexNumberClass.Constructors.Add(secondConstructor);
 
 var fields = new Field[]
 {
-    new Field(BuiltInDataType.Double, "PI") { SingleKeyWord = KeyWord.Const, DefaultValue = "3.14" },
+    new Field(BuiltInDataType.Double, "PI") { SingleKeyWord = KeyWord.Const, DefaultValue ="3.14" },
     new Field(BuiltInDataType.String, "remark") { AccessModifier = AccessModifier.Private },
 }.ToDictionary(a => a.Name, a => a);
 
@@ -288,7 +288,7 @@ var methods = new Method[]
     },
     new Method(BuiltInDataType.String, "ToString")
     {
-        Comment = "example of 2 KeyWords(new and virtual), usually here would be just virtual",
+        Comment = "example of 2 KeyWords(new and virtual), usually here just virtual",
         KeyWords = new List<KeyWord> { KeyWord.New, KeyWord.Virtual },
         BodyLines = new List<string> { "return $\"({Real:0.00}, {Imaginary:0.00})\";" }
     }
