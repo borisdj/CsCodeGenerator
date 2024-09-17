@@ -329,7 +329,7 @@ namespace CsCodeGenerator.Test
                 },
                 new (complexNumberText, "Add")
                 {
-                    Parameters = [ new Parameter("ComplexNumber", "input") ],
+                    Parameters = [ new Parameter("ComplexNumber", "input", null) ],
                     BodyLines = 
                     [
                         "ComplexNumber result = new ComplexNumber",
