@@ -181,7 +181,8 @@ var complexNumberClass = (ClassModel)classModel
         { SingleKeyWord = KeyWord.Static, IsGetOnly = true, DefaultValue = @"""a + b * i""" })
     .WithProperty(BuiltInDataType.Double, "Real")
     .WithProperty(BuiltInDataType.Double, "Imaginary")
-    .WithProperty(new Property(BuiltInDataType.String, "Remark") { SingleKeyWord = KeyWord.Virtual, IsAutoImplemented = false }
+    .WithProperty(new Property(BuiltInDataType.String, "Remark")
+        { SingleKeyWord = KeyWord.Virtual, IsAutoImplemented = false }
         .WithGetter("remark")
         .WithSetter("remark = value"))
     .WithMethod(new Method(BuiltInDataType.Double, "Modul")
