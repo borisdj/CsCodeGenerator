@@ -148,9 +148,9 @@ namespace CsCodeGenerator.Tests
 }
 ````
 
-A) Code to do it with Fluent methods ***.With**Element()*:  
-(Fluent calls are composed with BaseElement, when configuring deeper level we need to instanciate with New and call in the scope;  
-To be able to get subElements returned to main scope then more extension methods would be needed - one is commented in code: `WithPropertyReturn`)
+A) Code to do it with Fluent methods [***.With**Element()*]:  
+Fluent calls are composed with BaseElement, when configuring deeper level we need to instanciate with New and call in the scope.  
+To be able to get subElements returned to main scope then more extension methods would be needed - one example is commented in source code: `WithPropertyReturn`.
 ````csharp
 var usingDirectives = new List<string>
 {
