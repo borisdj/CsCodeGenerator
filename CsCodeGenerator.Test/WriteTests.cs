@@ -1,4 +1,5 @@
 ﻿using CsCodeGenerator.Enums;
+using System;
 using System.Diagnostics;
 using Xunit;
 
@@ -368,6 +369,83 @@ namespace CsCodeGenerator.Test
             Assert.Equal(text, result);
         }
 
+        [Fact]
+        private void WriteComplexNumberFileWithFluent()
+        {
+            var usingDirectives = new List<string>
+            {
+                "System;",
+                "System.ComponentModel;"
+            };
+            string fileNameSpace = "CsCodeGenerator.Tests";
+            string complexNumberText = "ComplexNumber";
+
+            // Class
+            var classModel = new ClassModel();
+            var indent = classModel.Indent;
+
+            var complexNumberClass = (ClassModel)classModel
+                .WithAttribute(new AttributeModel("Description")
+                    .WithParameter(@"""Some class info"""))
+                .WithKeyWord(KeyWord.Partial)
+                .WithName(complexNumberText)
+                .WithConstructor(new Constructor(complexNumberText) { BracesInNewLine = false })
+                .WithConstructor(new Constructor(complexNumberText)
+                    .WithParameter(BuiltInDataType.Double, "real", null)
+                    .WithParameter(BuiltInDataType.Double, "imaginary", "0")
+                    .WithBodyLine("Real = real;")
+                    .WithBodyLine("Imaginary = imaginary;"))
+                .WithField(new Field(BuiltInDataType.Double, "PI") { SingleKeyWord = KeyWord.Const, DefaultValue = "3.14" })
+                .WithField(new Field(BuiltInDataType.String, "remark") { AccessModifier = AccessModifier.Private })
+                .WithProperty(new Property(BuiltInDataType.String, "DefaultFormat") { SingleKeyWord = KeyWord.Static, IsGetOnly = true, DefaultValue = @"""a + b * i""" })
+                .WithProperty(BuiltInDataType.Double, "Real")
+                .WithProperty(BuiltInDataType.Double, "Imaginary")
+                .WithProperty(new Property(BuiltInDataType.String, "Remark") { SingleKeyWord = KeyWord.Virtual, IsAutoImplemented = false }
+                    .WithGetter("remark")
+                    .WithSetter("remark = value"))
+                .WithMethod(new Method(BuiltInDataType.Double, "Modul")
+                    .WithBodyLine("return Math.Sqrt(Real * Real + Imaginary * Imaginary);"))
+                .WithMethod(new Method(complexNumberText, "Add")
+                    .WithParameter(complexNumberText, "input", null)
+                    .WithBodyLine("ComplexNumber result = new ComplexNumber") // WAY 2
+                    .WithBodyLine("{")
+                    .AddIndent()
+                        .WithBodyLine("Real = Real + input.Real,")
+                        .WithBodyLine("Imaginary = Imaginary + input.Imaginary,")
+                    .RemoveIndent()
+                    .WithBodyLine("};")
+                    .WithBodyLine("return result;")
+                    /*.WithBodyLines([ // WAY 2 alternatively
+                     "ComplexNumber result = new ComplexNumber",
+                     "{",
+                        $"{indent}Real = Real + input.Real,",
+                        $"{indent}Imaginary = Imaginary + input.Imaginary,",
+                     "};",
+                     "return result;"
+                     ])*/
+                 )
+                .WithMethod(new Method(BuiltInDataType.String, "ToString") { 
+                                KeyWords = [KeyWord.New, KeyWord.Virtual],
+                                Comment = "example of 2 KeyWords(new and virtual), usually here would be just virtual" }
+                    .WithBodyLine("return $\"({Real:0.00}, {Imaginary:0.00})\";"));
+
+            var complexNumberFile = new FileModel(complexNumberText);
+            complexNumberFile.LoadUsingDirectives(usingDirectives);
+            complexNumberFile.Namespace = fileNameSpace;
+            complexNumberFile.Classes.Add(complexNumberClass);
+
+            var csGenerator = new CsGenerator();
+            csGenerator.Files.Add(complexNumberFile);
+            //csGenerator.CreateFiles(); //Console.Write(complexNumberFile); 
+
+            string result = complexNumberFile.ToString();
+
+            string text = GetComplexNumberFileText();
+
+            Debug.Write(result);
+            Assert.Equal(text, result);
+        }
+
         protected static string GetComplexNumberFileText()
         {
             var lines = new List<string>
@@ -539,7 +617,8 @@ namespace CsCodeGenerator.Test
                             .WithParameter("Order", "2")))
                     .WithProperty(BuiltInDataType.String, "Address") // no need for 'new Property', can be set with args directly, no deeper element
                     .WithProperty(CommonDataType.DateTime.ToString(), "DateOfBirth")
-                    .WithProperty(new Property(BuiltInDataType.String, "FullName") { IsGetOnly = true, IsAutoImplemented = false, GetterBody = "FirstName + FamilyName" }
+                    .WithProperty(new Property(BuiltInDataType.String, "FullName") { IsGetOnly = true, IsAutoImplemented = false }
+                        .WithGetter("FirstName + FamilyName")    
                         .WithAttribute("NotMapped"));
 
             var textSystem = "System";

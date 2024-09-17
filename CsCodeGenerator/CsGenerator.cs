@@ -8,7 +8,7 @@ namespace CsCodeGenerator
     {
         public static int DefaultTabSize = 4;
 
-        public static string IndentSingle => new string(' ', CsGenerator.DefaultTabSize);
+        public static string IndentSingle => new string(' ', DefaultTabSize);
 
         public string OutputDirectory { get; set; } = "Output";
         public string DefaultPath { get; } = Directory.GetCurrentDirectory();

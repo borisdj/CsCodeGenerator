@@ -6,6 +6,12 @@ namespace CsCodeGenerator
 {
     public class ClassModel : BaseElement
     {
+        public ClassModel()
+        {
+            base.CustomDataType = Util.Class;
+            base.Name = null;
+        }
+
         public ClassModel(string name = null)
         {
             base.CustomDataType = Util.Class;

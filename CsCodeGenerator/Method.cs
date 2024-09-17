@@ -32,6 +32,7 @@ namespace CsCodeGenerator
 
         public override string ToString()
         {
+            var xx = IndentSize;
             if (!IsVisible)
                 return "";
             string result = base.ToString() + BaseParametersFormated;
