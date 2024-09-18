@@ -44,7 +44,7 @@ Also take a look into others packages:</br>
 ## GeneratorModel Structure:
 
 **Class Inheritance Hierarchy**
-````csharp
+```csharp
                                 |-* BaseElement
               ClassModel : -----|
 Property : -- Field : ----------|
@@ -84,7 +84,7 @@ CsGenerator
 		|
 		|---NestedClasses (recursively)
 			|--- ...
-````
+```
 
 ## How to use it 
 Following is first example of ComplexNumber class and then creating its ClassModel for writing to Complex.cs  
@@ -93,7 +93,7 @@ There are 2 option to configure it:
 -and other with pure classes and properties (B)
 
 Class we want to generate:
-````csharp
+```csharp
 using System;
 using System.Model;
 
@@ -147,12 +147,12 @@ namespace CsCodeGenerator.Tests
         }
     }
 }
-````
+```
 
-A) Code to do it with Fluent methods [***With**Element()* such as `WithProperty`]:  
+A) Code to do it with Fluent methods - shorter code and more readable syntax. [***With**Element()* such as `WithProperty`].
 Fluent calls are composed with BaseElement, when configuring deeper level we need to instanciate with New and call in the scope.  
 To be able to get subElements returned to main scope (like EFCore FluentAPI setting works) then more extension methods would be needed - one example is commented in source code: `WithPropertyReturn`.
-````csharp
+```csharp
 var usingDirectives = new List<string>
 {
     "System;",
@@ -211,10 +211,10 @@ complexNumberFile.Classes.Add(complexNumberClass);
 var csGenerator = new CsGenerator();
 csGenerator.Files.Add(complexNumberFile);
 csGenerator.CreateFiles();
-````
+```
 
 B) Alternative way without Fluent:
-````csharp
+```csharp
 var usingDirectives = new List<string>
 {
     "using System;",
@@ -307,4 +307,4 @@ complexNumberFile.Classes.Add(complexNumberClass.Name, complexNumberClass);
 CsGenerator csGenerator = new CsGenerator();
 csGenerator.Files.Add(complexNumberFile.Name, complexNumberFile);
 csGenerator.CreateFiles(); //Console.Write(complexNumberFile); 
-````
+```
