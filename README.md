@@ -51,9 +51,9 @@ Property : -- Field : ----------|
 Constructor : Method : ---------|
               EnumModel : ------|
               InterfaceModel : -|
-````
+```
 **Component Composition**
-````csharp
+```csharp
 CsGenerator
 |
 |---Files
