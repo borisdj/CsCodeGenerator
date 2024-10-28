@@ -19,8 +19,12 @@ For more complex code with indented segments specific Indent value should be set
 
 Package targets .NET Standard 2.0 so can be used both with .NetFramework and .NetCore / .Net (new unified)  
 
+Logo: <img src="CSCodeGeneratorLogo.png" height=30>   
+
+[![NuGet](https://img.shields.io/npm/l/express.svg)](https://github.com/borisdj/CsCodeGenerator/blob/master/LICENSE)  
+
 ## Installation
-Available on [![NuGet](https://img.shields.io/nuget/v/CsCodeGenerator.svg)](https://www.nuget.org/packages/CsCodeGenerator/) latest version. Logo: <img src="CSCodeGeneratorLogo.png" height=30>   
+Available on [![NuGet](https://img.shields.io/nuget/v/CsCodeGenerator.svg)](https://www.nuget.org/packages/CsCodeGenerator/) latest version.
 Package manager console command for installation: *Install-Package CsCodeGenerator*   
 
 ## Support
