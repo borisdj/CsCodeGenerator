@@ -21,7 +21,7 @@ Package targets .NET Standard 2.0 so can be used both with .NetFramework and .Ne
 
 ## Installation
 Available on [![NuGet](https://img.shields.io/nuget/v/CsCodeGenerator.svg)](https://www.nuget.org/packages/CsCodeGenerator/) latest version. Logo: <img src="CSCodeGeneratorLogo.png" height=30>   
-Package manager console command for installation: *Install-Package EFCore.BulkExtensions*   
+Package manager console command for installation: *Install-Package CsCodeGenerator*   
 
 ## Support
 If you find this project useful you can mark it by leaving a Github **Star** :star:  
