@@ -24,7 +24,7 @@ Logo: <img src="CSCodeGeneratorLogo.png" height=30>
 [![NuGet](https://img.shields.io/npm/l/express.svg)](https://github.com/borisdj/CsCodeGenerator/blob/master/LICENSE)  
 
 ## Installation
-Available on [![NuGet](https://img.shields.io/nuget/v/CsCodeGenerator.svg)](https://www.nuget.org/packages/CsCodeGenerator/) latest version.
+Available on [![NuGet](https://img.shields.io/nuget/v/CsCodeGenerator.svg)](https://www.nuget.org/packages/CsCodeGenerator/) latest version.  
 Package manager console command for installation: *Install-Package CsCodeGenerator*   
 
 ## Support
