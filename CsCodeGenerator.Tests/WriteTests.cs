@@ -706,7 +706,7 @@ namespace CsCodeGenerator.Tests
             return text;
         }
 
-        private List<string> ReadFileFromDisk(string path)
+        private static List<string> ReadFileFromDisk(string path)
         {
             throw new NotImplementedException();
         }
