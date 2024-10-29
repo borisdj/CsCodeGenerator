@@ -23,20 +23,20 @@ namespace CsCodeGenerator
 
         public virtual List<Method> Methods { get; set; } = new List<Method>();
 
-        public override string ToString()
+        protected override void BuildStringInternal()
         {
-            string result = base.ToString();
-            result += Util.NewLine + Indent + "{";
+            AppendIntent();
+            Builder.Append("{");
 
-            result += string.Join("", Properties);
+            AppendJoin("", Properties);
             bool hasPropertiesAndMethods = Properties.Count > 0 && Methods.Count > 0;
-            result += hasPropertiesAndMethods ? Util.NewLine : "";
-            result += string.Join(Util.NewLine, Methods);
+            Builder.Append(hasPropertiesAndMethods? Util.NewLine : "");
+            AppendJoin(Util.NewLine, Methods);
 
-            result += Util.NewLine + Indent + "}";
-            result = result.Replace(AccessModifier.Public.ToTextLower() + " ", "");
-            result = result.Replace("\r\n        {\r\n        }", ";");
-            return result;
+            Builder.Append(Util.NewLine + Indent + "}");
+
+            Builder.Replace(AccessModifier.Public.ToTextLower() + " ", "");
+            Builder.Replace("\r\n        {\r\n        }", ";");
         }
     }
 }
