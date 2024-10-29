@@ -39,7 +39,7 @@ namespace CsCodeGenerator.Tests
                 "protected DateTime field4;",
                 "    /// <summary>",
                 "    // Remark: List used for Ids.",
-                "    /// <summary>",
+                "    /// </summary>",
                 "    protected List<Guid> field5;"
             };
             string text = GetText(lines);
@@ -84,7 +84,7 @@ namespace CsCodeGenerator.Tests
                 "        public DateTime Property4 { get; set; }",
                 "        /// <summary>",
                 "        // Remark: Manual implemented Property.",
-                "        /// <summary>",
+                "        /// </summary>",
                 "        public List<Guid> Property5",
                 "        {",
                 "            get { return field5; }",
@@ -173,7 +173,7 @@ namespace CsCodeGenerator.Tests
                 "",
                 "        /// <summary>",
                 "        // Some Comment",
-                "        /// <summary>",
+                "        /// </summary>",
                 "        public class MyNestedClass",
                 "        {",
                 "            public MyNestedClass() { }",
@@ -491,7 +491,7 @@ namespace CsCodeGenerator.Tests
                 "",
                 "        /// <summary>",
                 "        // example of 2 KeyWords(new and virtual), usually here would be just virtual",
-                "        /// <summary>",
+                "        /// </summary>",
                 "        public new virtual string ToString()",
                 "        {",
                 "            return $\"({Real:0.00}, {Imaginary:0.00})\";",
@@ -706,7 +706,7 @@ namespace CsCodeGenerator.Tests
             return text;
         }
 
-        private List<string> ReadFileFromDisk(string path)
+        private static List<string> ReadFileFromDisk(string path)
         {
             throw new NotImplementedException();
         }

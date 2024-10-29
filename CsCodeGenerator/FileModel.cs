@@ -2,7 +2,7 @@
 
 namespace CsCodeGenerator
 {
-    public class FileModel
+    public class FileModel : Serialiazble
     {
         public FileModel() { }
         public FileModel(string name)
@@ -34,16 +34,28 @@ namespace CsCodeGenerator
 
         public override string ToString()
         {
+            Builder.Clear();
+
+
             string usingText = UsingDirectives.Count > 0 ? Util.Using + " " : "";
-            string result = usingText + string.Join(Util.NewLine + usingText, UsingDirectives);
-            result += Util.NewLineDouble + Util.Namespace + " " + Namespace;
-            result += Util.NewLine + "{";
-            result += string.Join(Util.NewLine, Enums);
-            result += (Enums.Count > 0 && Classes.Count > 0) ? Util.NewLine : "";
-            result += string.Join(Util.NewLine, Classes);
-            result += Util.NewLine + "}";
-            result += Util.NewLine;
-            return result;
+            Builder.Append(usingText);
+
+            AppendJoin(Util.NewLine + usingText, UsingDirectives);
+
+            Builder.Append(Util.NewLineDouble).Append(Util.Namespace).Append(" ").Append(Namespace);
+            Builder.Append(Util.NewLine).Append("{");
+
+
+            AppendJoin(Util.NewLine, Enums);
+            Builder.Append((Enums.Count > 0 && Classes.Count > 0) ? Util.NewLine : "");
+
+            AppendJoin(Util.NewLine, Classes);
+
+
+            Builder.Append(Util.NewLine + "}");
+            Builder.Append(Util.NewLine);
+
+            return Builder.ToString();
         }
     }
 }

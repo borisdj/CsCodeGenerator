@@ -21,15 +21,18 @@ namespace CsCodeGenerator
 
         public List<EnumValue> EnumValues { get; set; } = new List<EnumValue>();
 
-        public override string ToString()
-        {
-            string result = base.ToString();
-            result += Util.NewLine + Indent + "{";
 
-            result += EnumValues.Count > 0 ? Util.NewLine : "";
-            result += string.Join("," + Util.NewLine, EnumValues);
-            result += Util.NewLine + Indent + "}";
-            return result;
+        protected override void BuildStringInternal()
+        {
+            AppendIntent();
+            Builder.Append("{");
+
+
+            Builder.Append(EnumValues.Count > 0 ? Util.NewLine : "");
+            AppendJoin("," + Util.NewLine, EnumValues);
+
+            AppendIntent();
+            Builder.Append("}");
         }
     }
 

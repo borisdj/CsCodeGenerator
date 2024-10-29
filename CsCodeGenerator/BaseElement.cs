@@ -2,10 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace CsCodeGenerator
 {
-    public abstract class BaseElement
+    public abstract class BaseElement : Serialiazble
     {
         public BaseElement() { }
 
@@ -51,19 +52,73 @@ namespace CsCodeGenerator
 
         public void AddAttribute(AttributeModel attributeModel) => Attributes?.Add(attributeModel);
 
-        public override string ToString()
+
+        protected void AppendIntent()
         {
-            string result = "";
-            if (Comment != null)
+            Builder.Append(Util.NewLine).Append(' ', IndentSize);
+        }
+
+        private void BuildString()
+        {
+            Builder.Clear();
+
+            BuildComment();
+            BuildAttributes();
+            BuildSignature();
+
+            BuildStringInternal();
+        }
+
+        protected abstract void BuildStringInternal();
+
+        private void BuildSignature()
+        {
+            Builder.Append(Util.NewLine).Append(Signature);
+        }
+
+        private void BuildAttributes()
+        {
+            if (Attributes.Any())
             {
-                string commentSummary = CommentHasSummaryTag ? Util.NewLine + Indent + "/// <summary>" : "";
-                result += commentSummary;
-                result += Util.NewLine + Indent + "// " + Comment ;
-                result += commentSummary;
+                AppendIntent();
+                AppendJoin(Util.NewLine + Indent, Attributes);
             }
-            result += HasAttributes ? Attributes.ToStringList(Indent) : "";
-            result += Util.NewLine + Signature;
-            return result;
+        }
+
+        private void BuildComment()
+        {
+            if (Comment == null)
+            {
+                return;
+            }
+
+            if (CommentHasSummaryTag)
+            {
+                AppendIntent();
+                Builder.Append("/// ").Append(GetTag(CommentTag.Summary, true));
+            }
+
+            AppendIntent();
+            Builder.Append("// ").Append(Comment);
+
+            if (CommentHasSummaryTag)
+            {
+                AppendIntent();
+                Builder.Append("/// ").Append(GetTag(CommentTag.Summary, false));
+            }
+        }
+
+
+        private string GetTag(CommentTag tag, bool start)
+        {
+            string tagText = tag.ToString().ToLower();
+            return start ? $"<{tagText}>" : $"</{tagText}>";
+        }
+
+        public sealed override string ToString()
+        {
+            BuildString();
+            return Builder.ToString();
         }
     }
 }
