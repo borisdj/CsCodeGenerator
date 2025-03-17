@@ -29,7 +29,7 @@ Package manager console command for installation: *Install-Package CsCodeGenerat
 
 ## Support
 If you find this project useful you can mark it by leaving a Github **Star** :star:  
-And even with community license, if you want help development, you can make a DONATION:  
+If you want help development, you can become a CONTRIBUTOR or you can make a DONATION:  
 [<img src="https://www.buymeacoffee.com/assets/img/custom_images/yellow_img.png" alt="Buy Me A Coffee" height=28>](https://www.buymeacoffee.com/boris.dj) _ or _ 
 [![Button](https://img.shields.io/badge/donate-Bitcoin-orange.svg?logo=bitcoin):zap:](https://borisdj.net/donation/donate-btc.html)  
 Want to **Contact** for Development & Consulting: [www.codis.tech](http://www.codis.tech) (*Quality Assurance*)  
