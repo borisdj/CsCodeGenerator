@@ -52,35 +52,36 @@ namespace CsCodeGenerator
         // Setting it automaticaly and propagating could be done if the parent sets the child's parent reference (to itself) when the child is added/assigned to a parent. Parent setter is internal.
         //   http://softwareengineering.stackexchange.com/questions/261453/what-is-the-best-way-to-initialize-a-childs-reference-to-its-parent
 
-        public override string ToString()
+        protected override void BuildStringInternal()
         {
-            string result = base.ToString();
-            result += (BaseClass != null || Interfaces?.Count > 0) ? $" : " : "";
-            result += BaseClass ?? "";
-            result += (BaseClass != null && Interfaces?.Count > 0) ? $", " : "";
-            result += Interfaces?.Count > 0 ? string.Join(", ", Interfaces) : "";
-            result += Util.NewLine + Indent + "{";
+            Builder.Append((BaseClass != null || Interfaces?.Count > 0) ? $" : " : "");
+            Builder.Append(BaseClass ?? "");
+            Builder.Append((BaseClass != null && Interfaces?.Count > 0) ? $", " : "");
 
-            result += string.Join("", Fields);
+            AppendJoin(", ", Interfaces);
+
+            AppendIntent();
+            Builder.Append("{");
+
+            AppendJoin("", Fields);
 
             var visibleConstructors = Constructors.Where(a => a.IsVisible);
             bool hasFieldsBeforeConstructor = visibleConstructors.Any() && Fields.Any();
-            result += hasFieldsBeforeConstructor ? Util.NewLine : "";
-            result += string.Join(Util.NewLine, visibleConstructors);
+            Builder.Append(hasFieldsBeforeConstructor ? Util.NewLine : "");
+            AppendJoin(Util.NewLine, visibleConstructors);
             bool hasMembersAfterConstructor = (visibleConstructors.Any() || Fields.Any()) && (Properties.Any() || Methods.Any());
-            result += hasMembersAfterConstructor ? Util.NewLine : "";
+            Builder.Append(hasMembersAfterConstructor ? Util.NewLine : "");
 
-            result += string.Join(HasPropertiesSpacing ? Util.NewLine : "", Properties);
+            AppendJoin(HasPropertiesSpacing ? Util.NewLine : "", Properties);
 
             bool hasPropertiesAndMethods = Properties.Count > 0 && Methods.Count > 0;
-            result += hasMembersAfterConstructor ? Util.NewLine : "";
-            result += string.Join(Util.NewLine, Methods);
-            
-            result += NestedClasses.Count > 0 ? Util.NewLine : "";
-            result += string.Join(Util.NewLine, NestedClasses);
+            Builder.Append(hasMembersAfterConstructor ? Util.NewLine : "");
+            AppendJoin(Util.NewLine, Methods);
 
-            result += Util.NewLine + Indent + "}";
-            return result;
+            Builder.Append(NestedClasses.Count > 0 ? Util.NewLine : "");
+            AppendJoin(Util.NewLine, NestedClasses);
+
+            Builder.Append(Util.NewLine + Indent + "}");
         }
     }
 }

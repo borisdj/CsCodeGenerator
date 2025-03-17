@@ -30,18 +30,23 @@ namespace CsCodeGenerator
 
         public override string Signature => base.Signature + Parameters.ToStringList();
 
-        public override string ToString()
+        protected override void BuildStringInternal()
         {
-            var xx = IndentSize;
+
             if (!IsVisible)
-                return "";
-            string result = base.ToString() + BaseParametersFormated;
+            {
+                return;
+            }
+
+            Builder.Append(BaseParametersFormated);
+
             string bracesPrefix = BracesInNewLine ? (Util.NewLine + Indent) : " ";
             string curentIndent = Util.NewLine + Indent + CsGenerator.IndentSingle;
-            result += bracesPrefix + "{";
-            result += BodyLines.Count == 0 ? "" : (BracesInNewLine ? curentIndent : " ") + string.Join(curentIndent, BodyLines);
-            result += bracesPrefix + "}";
-            return result;
+
+            Builder.Append(bracesPrefix).Append("{");
+            Builder.Append(BodyLines.Count == 0 ? "" : (BracesInNewLine ? curentIndent : " "));
+            AppendJoin(curentIndent, BodyLines);
+            Builder.Append(bracesPrefix).Append("}");
         }
     }
 }

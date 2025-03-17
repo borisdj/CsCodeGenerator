@@ -1,9 +1,10 @@
 ﻿using CsCodeGenerator.Enums;
 using System.Collections.Generic;
+using System.Text;
 
 namespace CsCodeGenerator
 {
-    public class Parameter
+    public class Parameter : Serialiazble
     {
         public Parameter() { }
 
@@ -48,7 +49,13 @@ namespace CsCodeGenerator
 
         public string NameValueFormated => (string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Value)) ? Name + Value : Name + " = " + Value;
 
-        public override string ToString() => KeyWordFormated + DataTypeFormated + NameValueFormated;
+        public override string ToString()
+        {
+            Builder.Clear();
+            Builder.Append(KeyWordFormated).Append(DataTypeFormated).Append(NameValueFormated);
+            return Builder.ToString();
+        }
+
     }
 
     public static class ParameterExtensions

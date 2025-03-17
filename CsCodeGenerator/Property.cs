@@ -24,39 +24,42 @@ namespace CsCodeGenerator
 
         protected override string Ending => DefaultValue != null ? ";" : "";
 
-        public override string Body
+        protected override void BuildBody()
         {
-            get
+            base.BuildBody();
+
+            if (IsAutoImplemented && SetterBody == null)
             {
-                string result = "";
-                if (IsAutoImplemented && SetterBody == null)
+                if (IsGetOnly)
                 {
-                    if (IsGetOnly)
-                    {
-                        if(GetterBody != null)
-                            result += " => " + GetterBody + ";";
-                        else
-                            result += " { get; }";
-                    }
+                    if (GetterBody != null)
+                       Builder.Append(" => ").Append(GetterBody).Append(";");
                     else
-                    {
-                        result += " { get; set; }";
-                    }
+                        Builder.Append(" { get; }");
                 }
                 else
                 {
-                    result += Util.NewLine + Indent + "{";
-                    string curentIndent = Util.NewLine + Indent + CsGenerator.IndentSingle;
-
-                    result += curentIndent + "get { return " + GetterBody + "; }";
-                    if (!IsGetOnly && SetterBody != null)
-                    {
-                        result += curentIndent + "set { " + SetterBody + "; }";
-                    }
-                    result += Util.NewLine + Indent + "}";
+                    Builder.Append(" { get; set; }");
                 }
-                return result;
-            } 
+            }
+            else
+            {
+                AppendIntent();
+                Builder.Append("{");
+
+                AppendIntent();
+                Builder.Append(CsGenerator.IndentSingle);
+                Builder.Append("get { return ").Append(GetterBody).Append("; }");
+                if (!IsGetOnly && SetterBody != null)
+                {
+                    AppendIntent();
+                    Builder.Append(CsGenerator.IndentSingle);
+                    Builder.Append("set { ").Append(SetterBody).Append("; }");
+                }
+
+                AppendIntent();
+                Builder.Append("}");
+            }
         }
     }
 }
